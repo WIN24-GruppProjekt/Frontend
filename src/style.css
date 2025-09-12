@@ -6,10 +6,46 @@
 
 h1 {
   font-size: 20px;
+  color: var(--clr-font-primary);
 }
-
+#root{
+  background-color: var(--clr-bg);
+}
 .centerscreen {
     display: grid;
     place-items: center;
     height: 100dvh
+}
+
+:root{
+  --clr-bg: #F0F1F3;
+  --clr-bg-secondary: #FFFFFF;
+
+  --clr-font-primary: #000000;
+  --clr-font-secondary: #1F1F20;
+  --clr-font-text: #33334A;
+  --clr-header: #FF0000;
+
+  --clr-border: #D8D8DA;
+
+  --clr-btn-primary: #F44336;
+
+  --clr-error: #E74C3C;
+  --clr-info: #1881D5;
+  --clr-success: #4CAF50;
+  --clr-warning: #FF6300;
+}
+
+:root[data-theme="dark"]{
+  --clr-bg: #F0F1F3;
+  --clr-bg-secondary: #FFFFFF;
+
+  --clr-font-primary: #000000;
+  --clr-font-secondary: #1F1F20;
+  --clr-font-text: #33334A;
+  --clr-header: #FF0000;
+
+  --clr-border: #D8D8DA;
+
+  --clr-btn-primary: #F44336;
 }
