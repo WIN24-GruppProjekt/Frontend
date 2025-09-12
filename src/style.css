@@ -6,10 +6,23 @@
 
 h1 {
   font-size: 20px;
+  color: var(--clr-font-primary);
 }
-
+#root{
+  background-color: var(--clr-bg);
+}
 .centerscreen {
     display: grid;
     place-items: center;
     height: 100dvh
+}
+
+:root{
+  --clr-bg: #ffffff;
+  --clr-font-primary: #000000;
+}
+
+:root[data-theme="dark"]{
+  --clr-bg: #000000;
+  --clr-font-primary: #ffffff;
 }
