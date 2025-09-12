@@ -1,18 +1,17 @@
 import { useState } from 'react'
-import ThemeToggle from './components/ThemeToggle'
+import { Route, Routes } from 'react-router-dom'
+import SessionListPage from './pages/SessionListPage'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <div className='centerscreen'>
-        <h1>
-          Body from App.jsx
-        </h1>
-        <ThemeToggle />
-      </div>
+    <Routes>
+      <Route path='/' element={<SessionListPage />} />
+    </Routes>
     </>
+
   )
 }
 
