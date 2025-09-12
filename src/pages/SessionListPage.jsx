@@ -1,4 +1,5 @@
 import React from 'react'
+import ThemeToggle from '../components/ThemeToggle'
 
 const SessionListPage = () => {
   return (
@@ -6,6 +7,7 @@ const SessionListPage = () => {
         <h1>
             Body from SessionListPage.jsx
         </h1>
+        <ThemeToggle />
     </div>
   )
 }
