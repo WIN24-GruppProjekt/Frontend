@@ -34,6 +34,8 @@ h1 {
   --clr-info: #1881D5;
   --clr-success: #4CAF50;
   --clr-warning: #FF6300;
+
+  --font-fa-pro: "Font Awesome 6 Pro";
 }
 
 :root[data-theme="dark"]{
@@ -48,4 +50,15 @@ h1 {
   --clr-border: #D8D8DA;
 
   --clr-btn-primary: #F44336;
+}
+
+.session-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--clr-font-primary);
+  margin-bottom: 1rem;
+  border: 1px solid black;  
+  padding: 1rem;
+  border-radius: 1rem;
 }
