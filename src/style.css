@@ -3,14 +3,25 @@
     padding: 0;
     box-sizing: border-box;
 }
+button, a, li{
+  cursor: pointer;
+}
+
+li, ul, ol, a, nav, button{
+  list-style: none;
+  text-decoration: none;
+}
 
 h1 {
   font-size: 20px;
-  color: var(--clr-font-primary);
+  color: var(--clr-header);
 }
-#root{
-  background-color: var(--clr-bg);
-}
+
+p, span, label {
+  font-size: 16px;
+  color: var(--clr-font-text);
+} 
+
 .centerscreen {
     display: grid;
     place-items: center;
@@ -39,17 +50,23 @@ h1 {
 }
 
 :root[data-theme="dark"]{
-  --clr-bg: #F0F1F3;
-  --clr-bg-secondary: #FFFFFF;
+  --clr-bg: #000000;
+  --clr-bg-secondary: #050005;
 
-  --clr-font-primary: #000000;
+  --clr-font-primary: #ffffff;
   --clr-font-secondary: #1F1F20;
   --clr-font-text: #33334A;
   --clr-header: #FF0000;
 
-  --clr-border: #D8D8DA;
+  --clr-border: #eeeeee;
 
   --clr-btn-primary: #F44336;
+}
+
+#root{
+  background-color: var(--clr-bg);
+  margin: 0 auto;
+  width: 1140px;
 }
 
 .session-card {
@@ -58,7 +75,18 @@ h1 {
   text-decoration: none;
   color: var(--clr-font-primary);
   margin-bottom: 1rem;
-  border: 1px solid black;  
+  border: 1px solid var(--clr-border);  
   padding: 1rem;
   border-radius: 1rem;
+  background: var(--clr-bg-secondary);
+}
+
+.theme-toggle{
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 1rem;
+  right: 20%;
+  color: var(--clr-header);
+  font-size: 1.5rem;
 }
