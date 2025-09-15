@@ -14,7 +14,7 @@ h1 {
 .centerscreen {
     display: grid;
     place-items: center;
-    height: 100dvh
+    height: 100%;
 }
 
 :root{
@@ -35,7 +35,8 @@ h1 {
   --clr-success: #4CAF50;
   --clr-warning: #FF6300;
 
-  --font-fa-pro: "Font Awesome 6 Pro";
+  --font-fa-free: "Font Awesome 7 Free";
+  --font-fa-brands: "Font Awesome 7 Brands";
 }
 
 :root[data-theme="dark"]{
@@ -61,4 +62,12 @@ h1 {
   border: 1px solid black;  
   padding: 1rem;
   border-radius: 1rem;
+}
+
+.session-card-location {
+ &::before {
+  font-family: var(--font-fa-free);
+  font-weight: 600;
+  content: '\f3c5';
+ }
 }
