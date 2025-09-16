@@ -22,12 +22,6 @@ p, span, label {
   color: var(--clr-font-text);
 } 
 
-.centerscreen {
-    display: grid;
-    place-items: center;
-    height: 100%;
-}
-
 :root{
   --clr-bg: #F0F1F3;
   --clr-bg-secondary: #FFFFFF;
@@ -70,6 +64,72 @@ p, span, label {
   width: 1140px;
 }
 
+.portal-wrapper {
+  max-width: 575.98px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "header" "main" "footer";
+  height: 100%;
+
+  main {
+    min-height: 85dvh;
+    height: 100%;
+  }
+
+    @media (width >= 768px) {
+      max-width: 767.98px;
+    }
+
+    @media (width >= 992px) {
+      max-width: 991.98px;
+    }
+
+    @media (width >= 1200px) {
+      max-width: 1199.98px;
+    }
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: .3rem;
+}
+
+.logotype {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.navbar {
+  width: 100%;
+  padding: 1rem;
+  text-decoration: none;
+}
+
+.links {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-link {
+  padding: 1rem;
+}
+
+main {
+  padding: 1rem;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  padding-block: 1rem;
+}
+
 .session-card {
   display: flex;
   flex-direction: column;
@@ -80,16 +140,6 @@ p, span, label {
   padding: 1rem;
   border-radius: 1rem;
   background: var(--clr-bg-secondary);
-}
-
-.theme-toggle{
-  background-color: transparent;
-  border: none;
-  position: absolute;
-  top: 1rem;
-  right: 20%;
-  color: var(--clr-header);
-  font-size: 1.5rem;
 }
 
 .session-card-description {
@@ -117,4 +167,14 @@ p, span, label {
     font-weight: 600;
     content: '\f3c5';
   }
+}
+
+.theme-toggle{
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 1rem;
+  right: 20%;
+  color: var(--clr-header);
+  font-size: 1.5rem;
 }
