@@ -92,11 +92,29 @@ p, span, label {
   font-size: 1.5rem;
 }
 
+.session-card-description {
+  font-style: italic;
+}
+
+.session-card-time {
+  display: flex;
+  gap: .3rem;
+
+  &::before {
+    font-family: var(--font-fa-free);
+    font-weight: 600;
+    content: '\f133';
+  }
+}
 
 .session-card-location {
- &::before {
-  font-family: var(--font-fa-free);
-  font-weight: 600;
-  content: '\f3c5';
- }
+  display: flex;
+  gap: .3rem;
+  margin-bottom: .3rem;
+
+  &::before {
+    font-family: var(--font-fa-free);
+    font-weight: 600;
+    content: '\f3c5';
+  }
 }
