@@ -5,7 +5,7 @@ import Footer from '../components/Footer'
 
 const PortalLayout = () => {
   return (
-        <div className='portal-wrapper'>
+      <div className='portal-wrapper'>
         <Header />
         <main>
             <Outlet />
