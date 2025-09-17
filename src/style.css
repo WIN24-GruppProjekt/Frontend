@@ -310,6 +310,7 @@ header {
   content: '\f3c5';
  }
 
+
  .lm-submit:active {
   transform: translateY(1px);
 }
@@ -337,6 +338,7 @@ header {
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
+
 
 .lm-social {
   border: 1px solid var(--clr-border);
