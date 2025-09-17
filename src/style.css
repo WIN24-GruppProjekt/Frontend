@@ -310,6 +310,7 @@ header {
   content: '\f3c5';
  }
 
+
  .lm-submit:active {
   transform: translateY(1px);
 }
@@ -338,6 +339,7 @@ header {
   gap: 10px;
 }
 
+
 .lm-social {
   border: 1px solid var(--clr-border);
   background: var(--clr-bg-secondary);
@@ -361,7 +363,8 @@ header {
   margin: 19px;
   color: var(--clr-bg);
   background: var(--clr-btn-primary);
-  border-radius: 30px;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
  }
   .form {
@@ -394,7 +397,7 @@ header {
   display: flex;
   align-items: center;
   gap: 5px;
-  margin: 10px;
+  margin: 20px;
   border: none;
  }
   .medium {
@@ -405,5 +408,6 @@ header {
   }
 
 /* #endregion */
+
 
 
