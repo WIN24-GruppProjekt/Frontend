@@ -58,11 +58,11 @@ p, span, label {
   --clr-btn-primary: #F44336;
 }
 
-#root{
+/* #root{
   background-color: var(--clr-bg);
   margin: 0 auto;
   width: 1140px;
-}
+} */
 
 .portal-wrapper {
   max-width: 575.98px;
@@ -71,10 +71,11 @@ p, span, label {
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   grid-template-areas: "header" "main" "footer";
+  min-height: 100dvh;
   height: 100%;
+  background-color: var(--clr-bg);
 
   main {
-    min-height: 85dvh;
     height: 100%;
   }
 
