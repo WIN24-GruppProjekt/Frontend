@@ -1,12 +1,13 @@
 import React from 'react'
-const SignInButton = ({ onClick }) => {
+
+const SignOutButton = () => {
     return (
         <button className="btn-box" onClick={() => setLoginOpen(true)}>
             <div className="btn-standard large">
-                Logga In
+                Logga Ut
             </div>
         </button>
     )
 }
 
-export default SignInButton
+export default SignOutButton
