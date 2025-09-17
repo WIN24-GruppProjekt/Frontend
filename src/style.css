@@ -100,3 +100,54 @@ p, span, label {
   content: '\f3c5';
  }
 }
+
+/* #region Buttons */
+
+ .btn-box {
+  margin: 19px;
+  color: var(--clr-bg);
+  background: var(--clr-btn-primary);
+  border-radius: 30px;
+  cursor: pointer;
+ }
+  .form {
+    border: none;
+    display: flex;
+    justify-content: center;
+    width: 250px;
+  }
+  .grey {
+    color: var(--clr-border);
+    background: var(--clr-font-text);
+  }
+  .signout {
+    margin-top: auto;
+    padding: 0px 32px;
+    border-radius: 12px;
+  }
+  .border {
+    color: var(--clr-font-text);
+    background: none;
+    border: solid 1px var(--clr-font-secondary);
+  }
+  .hidden {
+    color: var(--clr-font-text);
+    background: none;
+  }
+
+ .btn-standard {
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 10px;
+  border: none;
+ }
+  .medium {
+    font-size: 12px;
+  }
+  .large {
+    font-size: 14px;
+  }
+
+/* #endregion */
