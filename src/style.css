@@ -108,6 +108,7 @@ footer {
 }
 /* #region header */
 header {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -189,7 +190,7 @@ header {
   border: none;
   position: absolute;
   top: 1rem;
-  right: 20%;
+  right: 1rem;
   color: var(--clr-header);
   font-size: 1.5rem;
 }

@@ -2,80 +2,35 @@ import React, { useEffect, useState } from 'react'
 import SessionCard from '../components/SessionCard'
 
 const SessionList = () => {
+  const [sessions, setSessions] = useState([])
+  const [error, setError] = useState(null)
 
-    const [sessions, setSessions] = useState([])
-      const getSessions = async () => {
-        
-        //Swap out dummy data with fetched data from API
-        const dummyData = [
-          {
-            id: 's1',
-            title: 'Spin Class',
-            description: 'Cardio workout on stationary bikes with interval training.',
-            starttime: '2025-09-16 06:30',
-            endtime: '07:15',
-            location: 'Cycling Studio',
-            roomName: 'Sal 8',
-            availiblespots: 4
-          },
-          {
-            id: 's2',
-            title: 'CrossFit Basics',
-            description: 'Strength and conditioning class focusing on functional movements.',
-            starttime: '2025-09-16 - 08:00',
-            endtime: '2025-09-16 - 09:00',
-            location: 'Main Gym Floor',
-            roomName: 'Sal 3',
-            availiblespots: 2
-          },
-          {
-            id: 's3',
-            title: 'Pilates Core',
-            description: 'Mat-based pilates session focused on core strength and posture.',
-            starttime: '2025-09-16 - 10:30',
-            endtime: '2025-09-16 - 11:20',
-            location: 'Studio B',
-            roomName: 'Sal 15',
-            availiblespots: 0
-          },
-          {
-            id: 's4',
-            title: 'Lunchtime Express Pump',
-            description: 'Quick 40-minute barbell workout to build strength during lunch break.',
-            starttime: '2025-09-16 - 12:15',
-            endtime: '2025-09-16 - 12:55',
-            location: 'Studio A',
-            roomName: 'Sal 1',
-            availiblespots: 7
-          },
-          {
-            id: 's5',
-            title: 'Evening Yoga Flow',
-            description: 'Relaxing flow session to improve flexibility and reduce stress.',
-            starttime: '2025-09-16 - 18:00',
-            endtime: '2025-09-16 - 19:00',
-            location: 'Studio C',
-            roomName: 'Sal 1',
-            availiblespots: 5
-          },
-          {
-            id: 's6',
-            title: 'Bootcamp Outdoors',
-            description: 'High-intensity outdoor circuit with bodyweight and cardio drills.',
-            starttime: '2025-09-16 - 19:30',
-            endtime: '2025-09-16 - 20:15',
-            location: 'Outdoor Training Area',
-            roomName: 'Sal 2',
-            availiblespots: 10
-          }
-        ]
-    
-        setSessions(dummyData)
+  useEffect(() => {
+    const getSessions = async () => {
+      try {
+        const res = await fetch('https://eventsservices-dzgbahf4cuasa3b3.swedencentral-01.azurewebsites.net/api/Events', { headers: { Accept: 'application/json' } })
+        if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`)
+
+        const json = await res.json()
+
+        setSessions(Array.isArray(json) ? json : [])
+      } catch (e) {
+        console.error(e)
+        setError(e.message)
+        setSessions([])
       }
-    
-      useEffect(() => {
-        getSessions()
-      }, [])
+    }
+
+    getSessions()
+  }, [])
+
+  if (error) {
+    return (
+      <section className="session-page" id="sessions">
+        <p>Kunde inte hämta pass: {error}</p>
+      </section>
+    )
+  }
 
   return (
     <section className="session-page" id="sessions">
