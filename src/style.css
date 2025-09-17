@@ -290,7 +290,6 @@ footer {
   font-weight: 600;
   content: '\f3c5';
  }
-}
 
 /* #region Buttons */
 
@@ -298,7 +297,8 @@ footer {
   margin: 19px;
   color: var(--clr-bg);
   background: var(--clr-btn-primary);
-  border-radius: 30px;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
  }
   .form {
@@ -331,7 +331,7 @@ footer {
   display: flex;
   align-items: center;
   gap: 5px;
-  margin: 10px;
+  margin: 20px;
   border: none;
  }
   .medium {
@@ -342,9 +342,6 @@ footer {
   }
 
 /* #endregion */
-=======
-  cursor: pointer;
-}
 
 .lm-submit:active {
   transform: translateY(1px);
