@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import ThemeToggle from '../components/ThemeToggle'
 import SessionList from '../components/SessionList'
 import LoginModal from '../components/modals/loginModal'
+import SignInButton from '../components/SignInButton'
 
 const SessionListPage = () => {
     const [loginOpen, setLoginOpen] = useState(false);
@@ -14,10 +15,7 @@ const SessionListPage = () => {
   return (
     <div className='centerscreen'>
         <h1> Body from SessionListPage.jsx</h1>
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <button className="btn" onClick={() => setLoginOpen(true)}>Sign in</button>
-        </div>
-            
+        <SignInButton onClick={() => setLoginOpen(true)} />
 
             
       <LoginModal

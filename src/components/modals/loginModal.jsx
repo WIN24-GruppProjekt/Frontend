@@ -109,7 +109,6 @@ export default function LoginModal({ open, onClose, onSubmit }) {
                             type="email"
                             placeholder="you@example.com"
                             required
-                            autoComplete="email"
                         />
                     </div>
 
@@ -121,7 +120,6 @@ export default function LoginModal({ open, onClose, onSubmit }) {
                             type="password"
                             placeholder="••••••••"
                             required
-                            autoComplete="current-password"
                         />
                     </div>
 

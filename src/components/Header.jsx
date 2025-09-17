@@ -13,6 +13,9 @@ const Header = () => {
 
   return (
     <header>
+        <div className='head-logo'>
+          <img src="../src/img/core.png" alt="Core" />
+        </div>
         <span className='logotype'>Core Gym Club</span>
         <nav className='navbar'>
             <ul className="links">
