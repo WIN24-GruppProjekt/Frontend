@@ -12,9 +12,10 @@ const SessionList = () => {
             id: 's1',
             title: 'Spin Class',
             description: 'Cardio workout on stationary bikes with interval training.',
-            starttime: '2025-09-16 - 06:30',
-            endtime: '2025-09-16 - 07:15',
+            starttime: '2025-09-16 06:30',
+            endtime: '07:15',
             location: 'Cycling Studio',
+            roomName: 'Sal 8',
             availiblespots: 4
           },
           {
@@ -24,6 +25,7 @@ const SessionList = () => {
             starttime: '2025-09-16 - 08:00',
             endtime: '2025-09-16 - 09:00',
             location: 'Main Gym Floor',
+            roomName: 'Sal 3',
             availiblespots: 2
           },
           {
@@ -33,6 +35,7 @@ const SessionList = () => {
             starttime: '2025-09-16 - 10:30',
             endtime: '2025-09-16 - 11:20',
             location: 'Studio B',
+            roomName: 'Sal 15',
             availiblespots: 0
           },
           {
@@ -42,6 +45,7 @@ const SessionList = () => {
             starttime: '2025-09-16 - 12:15',
             endtime: '2025-09-16 - 12:55',
             location: 'Studio A',
+            roomName: 'Sal 1',
             availiblespots: 7
           },
           {
@@ -51,6 +55,7 @@ const SessionList = () => {
             starttime: '2025-09-16 - 18:00',
             endtime: '2025-09-16 - 19:00',
             location: 'Studio C',
+            roomName: 'Sal 1',
             availiblespots: 5
           },
           {
@@ -60,6 +65,7 @@ const SessionList = () => {
             starttime: '2025-09-16 - 19:30',
             endtime: '2025-09-16 - 20:15',
             location: 'Outdoor Training Area',
+            roomName: 'Sal 2',
             availiblespots: 10
           }
         ]
