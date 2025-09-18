@@ -4,7 +4,7 @@ import SignOutButton from '../components/SignOutButton'
 
 const ComponentsPage = () => {
   return (
-    <div classNane="centerscreen">
+    <div>
       <h1>Body from ComponentsPage.jsx</h1>
       <SignInButton />
       <SignOutButton />

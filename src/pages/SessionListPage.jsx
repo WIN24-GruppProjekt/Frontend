@@ -13,7 +13,7 @@ const SessionListPage = () => {
   }
 
   return (
-    <div className='centerscreen'>
+    <div>
         <h1> Body from SessionListPage.jsx</h1>
         <SignInButton onClick={() => setLoginOpen(true)} />
 
@@ -23,7 +23,6 @@ const SessionListPage = () => {
         onClose={() => setLoginOpen(false)}
         onSubmit={handleLogin}
       />
-        <ThemeToggle />
         <SessionList />
     </div>
   )
