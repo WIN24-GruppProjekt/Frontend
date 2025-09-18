@@ -5,6 +5,7 @@ import PortalLayout from './layouts/PortalLayout'
 import StartPage from './pages/StartPage'
 import AboutPage from './pages/AboutPage'
 import ComponentsPage from './pages/ComponentsPage'
+import SessionDetailsPage from './pages/SessionDetailsPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,6 +16,7 @@ function App() {
       <Route element={<PortalLayout />}>
       <Route path='/' element={<StartPage />}/>
         <Route path='/bokning' element={<SessionListPage />} />
+        <Route path='/bokning/pass/:id' element={<SessionDetailsPage />} />
         <Route path='/om' element={<AboutPage />} />
         <Route path='/komponenter' element={<ComponentsPage />} />
       </Route>
