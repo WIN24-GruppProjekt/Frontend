@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState("light");
-  const [rotating, setRotating] = useState(false);
 
   useEffect(() => {
     const current = document.documentElement.getAttribute("data-theme") || "light";
@@ -15,7 +14,6 @@ export default function ThemeToggle() {
     localStorage.setItem("theme", next);
     setTheme(next);
 
-    setRotation((prev) => prev + 180);
   };
 
   return (

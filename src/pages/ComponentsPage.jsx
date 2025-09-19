@@ -6,7 +6,7 @@ import MobileSignOut from '../components/MobileSignOut'
 
 const ComponentsPage = () => {
   return (
-    <div classNane="centerscreen">
+    <div>
       <h1>Body from ComponentsPage.jsx</h1>
       <SignInButton />
       <SignOutButton />

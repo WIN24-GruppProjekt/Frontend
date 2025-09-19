@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import NavigationLink from './NavigationLink';
+import CoreLogotype from '../img/core.png'
+import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
 
@@ -13,6 +15,10 @@ const Header = () => {
 
   return (
     <header>
+        <div className='head-logo'>
+          <img src="../src/img/core.png" alt="Core" />
+          <img src={CoreLogotype} alt="Core" />
+        </div>
         <span className='logotype'>Core Gym Club</span>
         <nav className='navbar'>
             <ul className="links">
@@ -21,6 +27,7 @@ const Header = () => {
               ))}
           </ul>
         </nav>
+        <ThemeToggle />
     </header>
   )
 }
