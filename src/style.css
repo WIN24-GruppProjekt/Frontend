@@ -59,12 +59,6 @@ p, li, span, label {
   --clr-btn-primary: #F44336;
 }
 
-/* #root{
-  background-color: var(--clr-bg);
-  margin: 0 auto;
-  width: 1140px;
-} */
-
 .portal-wrapper {
   max-width: 575.98px;
   margin: 0 auto;
@@ -98,6 +92,7 @@ p, li, span, label {
 .nav-link {
   padding: .5rem;
   font-weight: 700;
+  color: var(--clr-font-primary);
 
   &.active {
     color: var(--clr-header);
@@ -142,7 +137,7 @@ header {
 .head-logo{
   display: flex;
   align-items: center;
-  margin-bottom:1rem;
+  margin-block:1rem;
   img{
     border-radius: 50%;
     height: 5rem;
@@ -225,6 +220,24 @@ header {
 }
 
  /* #endregion */
+
+/* #region about */
+
+.about-header {
+  color: var(--clr-font-primary);
+}
+
+.about-text {
+  display: inline-block;
+  font-style: italic;
+  margin-block: 1rem;
+}
+
+.about-image {
+  width: 100%;
+}
+
+/* #endregion */
 
 /* #region Modal */
 

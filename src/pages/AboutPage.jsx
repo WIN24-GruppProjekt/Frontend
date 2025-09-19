@@ -1,10 +1,12 @@
 import React from 'react'
+import Image from '../img/about.jpg'
 
 const AboutPage = () => {
   return (
     <section>
-      <h1>Body from AboutPage.jsx</h1>
-      <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam porro veniam repellendus voluptatum at officiis, quas nostrum laboriosam impedit maiores deleniti veritatis sapiente, molestiae tenetur quibusdam labore explicabo ducimus deserunt! Cupiditate, non? Blanditiis illum, neque ab eveniet mollitia quis vel expedita tempore possimus itaque a sint, laborum, fuga unde consectetur illo molestiae saepe maxime dicta aliquid laudantium obcaecati beatae? Voluptates, placeat labore. Praesentium, deserunt atque, veritatis, ducimus sequi est laboriosam voluptatibus dolorem rem repellat perferendis quis possimus nostrum consectetur illo architecto accusamus recusandae optio beatae culpa corporis in a? Ipsum accusantium quia cum dolorem consequuntur veniam! Quos porro ea dignissimos!</span>
+      <h1 className='about-header'>Om oss</h1>
+      <span className='about-text'>På Core Gym Club brinner vi för hälsa, styrka och gemenskap. Vårt mål är att skapa en miljö där alla – oavsett nivå – känner sig välkomna och inspirerade. Med moderna lokaler, engagerade instruktörer och ett brett utbud av träningspass hjälper vi dig att nå dina mål, bygga nya vanor och ha roligt på vägen.</span>
+      <img src={Image} alt="Training session" className='about-image' />
     </section>
   )
 }
