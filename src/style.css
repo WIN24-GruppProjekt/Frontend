@@ -133,7 +133,50 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+
+  a {
+    color: var(--clr-btn-primary);
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+
+  @media (max-width: 768px) {
+        display: none;
+  }
+
+  &.mobile {
+      @media (min-width: 768px) {
+        display: none;
+      }
+      @media (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        font-size: 1.5rem;
+      }
+  }
 }
+
+.menu-toggle{
+  all: unset;
+  display: none;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  padding: 1rem;
+  font-size: 2rem;
+  border: 1px solid;
+  border-radius: 1rem;
+  color: var(--clr-btn-primary);
+  @media (max-width: 768px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+}
+
 .head-logo{
   display: flex;
   align-items: center;
