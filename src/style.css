@@ -154,7 +154,7 @@ header {
         display: flex;
         flex-direction: column;
         gap: 1.2rem;
-        font-size: 1.5rem;
+        margin: 0 auto;
       }
   }
 }
