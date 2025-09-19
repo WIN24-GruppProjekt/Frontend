@@ -17,7 +17,7 @@ h1 {
   color: var(--clr-header);
 }
 
-p, span, label {
+p, li, span, label {
   font-size: 16px;
   color: var(--clr-font-text);
 } 
@@ -34,6 +34,7 @@ p, span, label {
   --clr-border: #D8D8DA;
 
   --clr-btn-primary: #F44336;
+  --clr-btn-primary-hover: #f16157;
 
   --clr-error: #E74C3C;
   --clr-info: #1881D5;
@@ -57,12 +58,6 @@ p, span, label {
 
   --clr-btn-primary: #F44336;
 }
-
-/* #root{
-  background-color: var(--clr-bg);
-  margin: 0 auto;
-  width: 1140px;
-} */
 
 .portal-wrapper {
   max-width: 575.98px;
@@ -95,7 +90,13 @@ p, span, label {
 
 
 .nav-link {
-  padding: 1rem;
+  padding: .5rem;
+  font-weight: 700;
+  color: var(--clr-font-primary);
+
+  &.active {
+    color: var(--clr-header);
+  }
 }
 
 main {
@@ -179,7 +180,7 @@ header {
 .head-logo{
   display: flex;
   align-items: center;
-  margin-bottom:1rem;
+  margin-block:1rem;
   img{
     border-radius: 50%;
     height: 5rem;
@@ -229,6 +230,28 @@ header {
   }
 }
 
+.session-details-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--clr-font-primary);
+  margin-bottom: 1rem;
+  border: 1px solid var(--clr-border);  
+  padding: 3rem;
+  border-radius: 1rem;
+  background: var(--clr-bg-secondary);
+  height: 100%;
+
+  ul {
+    margin-block: 2rem;
+  }
+
+  li {
+    list-style: circle;
+  }
+}
+
 .theme-toggle{
   background-color: transparent;
   border: none;
@@ -240,6 +263,24 @@ header {
 }
 
  /* #endregion */
+
+/* #region about */
+
+.about-header {
+  color: var(--clr-font-primary);
+}
+
+.about-text {
+  display: inline-block;
+  font-style: italic;
+  margin-block: 1rem;
+}
+
+.about-image {
+  width: 100%;
+}
+
+/* #endregion */
 
 /* #region Modal */
 
@@ -450,6 +491,17 @@ header {
   }
   .large {
     font-size: 14px;
+  }
+  .mobile {
+    font-size: 20px;
+    margin: 30px; 
+  }
+  .btn-box:hover {
+    background-color: var(--clr-btn-primary-hover);
+  }
+  .btn-box:active {
+    background-color: var(--clr-btn-primary-hover);
+    border: solid 1px black;
   }
 
 /* #endregion */
