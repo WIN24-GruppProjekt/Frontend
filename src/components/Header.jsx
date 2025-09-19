@@ -4,6 +4,8 @@ import NavigationLink from './NavigationLink';
 
 const Header = () => {
 
+  const [menuOpen, setMenuOpen] = useState(false)
+
     const [navLinks, setNavLinks] = useState([
         { id: uuidv4(), name: "Start", to: "/" },
         { id: uuidv4(), name: "Bokning", to: "/bokning" },
@@ -24,6 +26,23 @@ const Header = () => {
               ))}
           </ul>
         </nav>
+        {/* Här är en snabbfix: meny som bara visas på mobil (t.ex. ≤768px) och togglas med ☰ / ✖. Inte optimalt, men funkar. */}
+        <button 
+          className="menu-toggle" 
+          onClick={() => setMenuOpen(prev => !prev)} /* togglar true -> false varje tryck på knappen */
+        >
+          {menuOpen ? "✖" : "☰"}
+        </button>
+
+      {menuOpen && (
+        <nav className='navbar mobile'>
+          <ul className="links mobile">
+            {navLinks.map(link => (
+              <NavigationLink key={link.id} link={link} />
+            ))}
+          </ul>
+        </nav>
+      )}
     </header>
   )
 }
