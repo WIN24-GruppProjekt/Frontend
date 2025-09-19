@@ -411,5 +411,19 @@ header {
 
 /* #endregion */
 
-
+/*Spinners*/
+.spinner-container{
+  max-width: 18.75rem;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  
+  .spinner-text{
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+/*End spinners*/
 
