@@ -16,10 +16,8 @@ const Header = () => {
   return (
     <header>
         <div className='head-logo'>
-          <img src="../src/img/core.png" alt="Core" />
           <img src={CoreLogotype} alt="Core" />
         </div>
-        <span className='logotype'>Core Gym Club</span>
         <nav className='navbar'>
             <ul className="links">
               {navLinks.map(link => (
