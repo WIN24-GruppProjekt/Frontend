@@ -34,6 +34,7 @@ p, span, label {
   --clr-border: #D8D8DA;
 
   --clr-btn-primary: #F44336;
+  --clr-btn-primary-hover: #f16157;
 
   --clr-error: #E74C3C;
   --clr-info: #1881D5;
@@ -341,7 +342,15 @@ footer {
     font-size: 14px;
   }
   .mobile {
-    
+    font-size: 20px;
+    margin: 30px; 
+  }
+  .btn-box:hover {
+    background-color: var(--clr-btn-primary-hover);
+  }
+  .btn-box:active {
+    background-color: var(--clr-btn-primary-hover);
+    border: solid 1px black;
   }
 
 /* #endregion */
