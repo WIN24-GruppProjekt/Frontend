@@ -449,16 +449,32 @@ header {
   .large {
     font-size: 14px;
   }
+  .large:active {
+    font-size: 13px;
+    transition: all 0.1s ease-in-out;
+  }
   .mobile {
     font-size: 20px;
     margin: 30px; 
+  }
+  .mobile:active {
+    font-size: 19px;
+    transition: all 0.1s ease-in-out;
   }
   .btn-box:hover {
     background-color: var(--clr-btn-primary-hover);
   }
   .btn-box:active {
     background-color: var(--clr-btn-primary-hover);
-    border: solid 1px black;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .more-info-book-pass {
+    display: flex;
+    flex-direction: column;
+    height:50px;
+    width: 230px;
+    margin: none;
   }
 
 /* #endregion */
