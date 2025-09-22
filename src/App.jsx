@@ -15,8 +15,8 @@ function App() {
     <Routes>
       <Route element={<PortalLayout />}>
       <Route path='/' element={<StartPage />}/>
-        <Route path='/bokning' element={<SessionListPage />} />
-        <Route path='/bokning/pass/:id' element={<SessionDetailsPage />} />
+        <Route path='/pass' element={<SessionListPage />} />
+        <Route path='/pass/info/:id' element={<SessionDetailsPage />} />
         <Route path='/om' element={<AboutPage />} />
         <Route path='/komponenter' element={<ComponentsPage />} />
       </Route>
