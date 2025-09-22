@@ -19,7 +19,7 @@ const SessionCard = ({item}) => {
     })
 
   return (
-    <Link to={`/bokning/pass/${item.id}`} className='session-card'>
+    <Link to={`/pass/info/${item.id}`} className='session-card'>
         <h3 className='session-card-title'>{item.title}</h3>
         <span className='session-card-description'>{item.description}</span>
         <span className='session-card-time'>{formatStart(item.startTime)}- {formatEnd(item.endTime)}</span>

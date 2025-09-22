@@ -36,6 +36,9 @@ p, li, span, label {
   --clr-btn-primary: #F44336;
   --clr-btn-primary-hover: #f16157;
 
+  --clr-navlink-primary: #000000;
+  --clr-navlink-hover: #696969;
+
   --clr-error: #E74C3C;
   --clr-info: #1881D5;
   --clr-success: #4CAF50;
@@ -92,7 +95,11 @@ p, li, span, label {
 .nav-link {
   padding: .5rem;
   font-weight: 700;
-  color: var(--clr-font-primary);
+  color: var(--clr-navlink-primary);
+
+  &:hover {
+    color: var(--clr-navlink-hover);
+  }
 
   &.active {
     color: var(--clr-header);
@@ -278,6 +285,7 @@ header {
 
 .about-image {
   width: 100%;
+  border-radius: 1rem;
 }
 
 /* #endregion */
