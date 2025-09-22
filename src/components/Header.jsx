@@ -10,7 +10,7 @@ const Header = () => {
 
     const [navLinks, setNavLinks] = useState([
         { id: uuidv4(), name: "Start", to: "/" },
-        { id: uuidv4(), name: "Bokning", to: "/bokning" },
+        { id: uuidv4(), name: "Pass", to: "/pass" },
         { id: uuidv4(), name: "Om Oss", to: "/om" },
         { id: uuidv4(), name: "Komponenter"  , to: "/komponenter" }
     ]);
