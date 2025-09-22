@@ -115,7 +115,8 @@ footer {
   justify-content: center;
   padding-block: 1rem;
 }
-/* #region header */
+/* #region Header */
+
 header {
   position: relative;
   display: flex;
@@ -196,7 +197,7 @@ header {
 }
 /* #endregion */
 
-/* #region session */
+/* #region Session */
 
 .session-card {
   display: flex;
@@ -271,7 +272,7 @@ header {
 
  /* #endregion */
 
-/* #region about */
+/* #region About */
 
 .about-header {
   color: var(--clr-font-primary);
@@ -446,6 +447,7 @@ header {
   align-items: center;
   justify-content: center;
 }
+
 /* #endregion */
 
 @keyframes lm-fade { from { opacity: 0 } to { opacity: 1 } }
@@ -523,14 +525,13 @@ header {
   .more-info-book-pass {
     display: flex;
     flex-direction: column;
-    height:50px;
-    width: 230px;
-    margin: none;
+    width: fit-content;
   }
 
 /* #endregion */
 
-/*Spinners*/
+/* #region Spinners*/
+
 .spinner-container{
   max-width: 18.75rem;
   margin: 2rem auto;
@@ -544,5 +545,5 @@ header {
     text-align: center;
   }
 }
-/*End spinners*/
+/* #endregion spinners*/
 
