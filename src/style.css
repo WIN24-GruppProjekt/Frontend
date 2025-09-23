@@ -505,7 +505,132 @@ header {
   justify-content: center;
 }
 
+
+
+.rm-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,.5);
+  padding: 1rem;
+  z-index: 1000;
+  animation: lm-fade .15s ease-out;
+}
+
+.rm-dialog {
+  width: 100%;
+  max-width: 420px;
+  background: var(--clr-bg-secondary);
+  color: var(--clr-font-primary);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  overflow: hidden;
+  border: 1px solid var(--clr-border);
+  transform: translateY(4px);
+  animation: lm-pop .18s ease-out;
+  padding: 18px;
+}
+
+.rm-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-bg-secondary);
+}
+
+.rm-title {
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: .2px;
+}
+
+.rm-close {
+  border: none;
+  background: transparent;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--clr-font-primary);
+  cursor: pointer;
+}
+
+.rm-error {
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255,0,0,0.1);
+  color: var(--clr-error);
+}
+
+.rm-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--clr-bg-secondary);
+  padding-top: 12px;
+}
+
+.rm-field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.rm-field label {
+  font-size: .9rem;
+  color: var(--clr-border);
+}
+
+.rm-field input {
+  width: 100%;
+  border: 1px solid var(--clr-border);
+  background: var(--clr-bg-secondary);
+  color: var(--clr-font-primary);
+  border-radius: 10px;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.rm-field input:focus {
+  border-color: var(--clr-border);
+  box-shadow: 0 0 0 3px rgba(124,197,255,.15);
+}
+
+.rm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.rm-cancel, .rm-submit {
+  padding: 12px 14px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.rm-cancel {
+  background: var(--clr-border);
+  color: var(--clr-font-text);
+}
+
+.rm-submit {
+  background: var(--clr-btn-primary);
+  color: var(--clr-bg-secondary);
+}
+
+.rm-submit:active {
+  transform: translateY(1px);
+}
 /* #endregion */
+
+
+
 
 /* #region Buttons */
 
