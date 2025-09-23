@@ -1,34 +1,36 @@
 import React, { useEffect, useState } from 'react'
 import SessionCard from '../components/SessionCard'
 import { ClipLoader } from 'react-spinners'
-
+import { eventsApi } from '../lib/api';
 const SessionList = () => {
   const [sessions, setSessions] = useState([])
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    const getSessions = async () => {
+    const ac = new AbortController();
+
+    const getSessions = async () => { // Fetches session data from the API
       try {
-        setIsLoading(true)
-        const res = await fetch('https://eventsservices-dzgbahf4cuasa3b3.swedencentral-01.azurewebsites.net/api/Events', { headers: { Accept: 'application/json' } })
-        if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`)
+        setIsLoading(true);
+        setError(null);
 
-        const json = await res.json()
+        const data = await eventsApi.get('/api/Events', { signal: ac.signal });
 
-        setSessions(Array.isArray(json) ? json : [])
+        setSessions(Array.isArray(data) ? data : []);
       } catch (e) {
-        console.error(e)
-        setError(e.message)
-        setSessions([])
+        if (e.name === 'AbortError') return; // Ignore abort errors
+        console.error(e);
+        setError(e.message || 'Någonting gick fel');
+        setSessions([]);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    getSessions()
-  }, [])
-
+    getSessions();
+    return () => ac.abort();
+  }, []);
   if (isLoading) {
     return (
         <div className='spinner-container'>

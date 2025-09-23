@@ -1,21 +1,43 @@
 import React, {useState} from 'react'
-import ThemeToggle from '../components/ThemeToggle'
 import SessionList from '../components/SessionList'
 import LoginModal from '../components/modals/loginModal'
+import RegisterModal from '../components/modals/RegisterModal'
 import SignInButton from '../components/SignInButton'
+import SignUpButton from '../components/SignUpButton'
+import { authApi, setToken } from '../lib/api'
 
 const SessionListPage = () => {
-    const [loginOpen, setLoginOpen] = useState(false);
-      async function handleLogin({ email, password, remember }) {
+      const [loginOpen, setLoginOpen] = useState(false);
+      const [registerOpen, setRegisterOpen] = useState(false);
 
+       // dummy function for test purposes
+
+    async function handleLogin({ email, password, remember }) {
+      const data = await authApi.post('/api/Login', { email, password });
+      if (!data?.token) throw new Error('Token saknas i svar.');
+      setToken(data.token);
       if (remember) localStorage.setItem('rememberLogin', '1');
+      else localStorage.removeItem('rememberLogin');
       setLoginOpen(false);
   }
 
+  async function handleRegister({ firstName, lastName, email, phone, password }) {
+      await authApi.post('/api/Register/customer', {
+        firstName,
+        lastName,
+        email,
+        phone,
+        password,
+      });
+      setRegisterOpen(false);
+    }
+  
+
   return (
     <div>
-        <h1> Body from SessionListPage.jsx</h1>
+        <h1> SessionListPage</h1>
         <SignInButton onClick={() => setLoginOpen(true)} />
+        <SignUpButton onClick={() => setRegisterOpen(true)} />
 
             
       <LoginModal
@@ -23,7 +45,13 @@ const SessionListPage = () => {
         onClose={() => setLoginOpen(false)}
         onSubmit={handleLogin}
       />
-        <SessionList />
+
+      <RegisterModal
+        open={registerOpen}
+        onClose={() => setRegisterOpen(false)}
+        onSubmit={handleRegister}
+      />
+      <SessionList />
     </div>
   )
 }
