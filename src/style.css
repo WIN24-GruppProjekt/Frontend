@@ -115,7 +115,8 @@ footer {
   justify-content: center;
   padding-block: 1rem;
 }
-/* #region header */
+/* #region Header */
+
 header {
   position: relative;
   display: flex;
@@ -196,7 +197,7 @@ header {
 }
 /* #endregion */
 
-/* #region session */
+/* #region Session */
 
 .session-card {
   display: flex;
@@ -271,7 +272,7 @@ header {
 
  /* #endregion */
 
-/* #region about */
+/* #region About */
 
 .about-header {
   color: var(--clr-font-primary);
@@ -446,6 +447,7 @@ header {
   align-items: center;
   justify-content: center;
 }
+
 /* #endregion */
 
 @keyframes lm-fade { from { opacity: 0 } to { opacity: 1 } }
@@ -500,21 +502,36 @@ header {
   .large {
     font-size: 14px;
   }
+  .large:active {
+    font-size: 13px;
+    transition: all 0.1s ease-in-out;
+  }
   .mobile {
     font-size: 20px;
     margin: 30px; 
+  }
+  .mobile:active {
+    font-size: 19px;
+    transition: all 0.1s ease-in-out;
   }
   .btn-box:hover {
     background-color: var(--clr-btn-primary-hover);
   }
   .btn-box:active {
     background-color: var(--clr-btn-primary-hover);
-    border: solid 1px black;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .more-info-book-pass {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
   }
 
 /* #endregion */
 
-/*Spinners*/
+/* #region Spinners*/
+
 .spinner-container{
   max-width: 18.75rem;
   margin: 2rem auto;
@@ -528,5 +545,5 @@ header {
     text-align: center;
   }
 }
-/*End spinners*/
+/* #endregion spinners*/
 

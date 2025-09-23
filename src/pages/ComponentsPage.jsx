@@ -3,6 +3,7 @@ import SignInButton from '../components/SignInButton'
 import SignOutButton from '../components/SignOutButton'
 import MobileSignIn from '../components/MobileSignIn'
 import MobileSignOut from '../components/MobileSignOut'
+import SessionCardButtons from '../components/SessionCardButtons'
 
 const ComponentsPage = () => {
   return (
@@ -12,6 +13,7 @@ const ComponentsPage = () => {
       <SignOutButton />
       <MobileSignIn />
       <MobileSignOut />
+      <SessionCardButtons />
     </div>
   )
 }
