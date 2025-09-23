@@ -1,53 +1,50 @@
-import React, {useState} from 'react'
-import { v4 as uuidv4 } from 'uuid';
-import NavigationLink from './NavigationLink';
-import CoreLogotype from '../img/core.png'
-import ThemeToggle from './ThemeToggle';
+  import React, {useState} from 'react'
+  import { v4 as uuidv4 } from 'uuid';
+  import NavigationLink from './NavigationLink';
+  import CoreLogotype from '../img/core.png'
+  import ThemeToggle from './ThemeToggle';
 
-const Header = () => {
+  const Header = () => {
 
-  const [menuOpen, setMenuOpen] = useState(false)
+    const [menuOpen, setMenuOpen] = useState(false)
 
-    const [navLinks, setNavLinks] = useState([
-        { id: uuidv4(), name: "Start", to: "/" },
-        { id: uuidv4(), name: "Pass", to: "/pass" },
-        { id: uuidv4(), name: "Om Oss", to: "/om" },
-        { id: uuidv4(), name: "Komponenter"  , to: "/komponenter" }
-    ]);
+      const [navLinks, setNavLinks] = useState([
+          { id: uuidv4(), name: "Start", to: "/" },
+          { id: uuidv4(), name: "Pass", to: "/pass" },
+          { id: uuidv4(), name: "Om Oss", to: "/om" },
+          { id: uuidv4(), name: "Komponenter"  , to: "/komponenter" }
+      ]);
 
-  return (
-    <header>
-        <div className='head-logo'>
-          <img src={CoreLogotype} alt="Core" />
-        </div>
-        <nav className='navbar'>
-            <ul className="links">
-              {navLinks.map(link => (
-                <NavigationLink key={link.id} link={link} />
-              ))}
-          </ul>
-        </nav>
-      <ThemeToggle />
-
-        {/* Här är en snabbfix: meny som bara visas på mobil (t.ex. ≤768px) och togglas med ☰ / ✖. Inte optimalt, men funkar. */}
+    return (
+      <header>
+          <div className='head-logo'>
+            <img src={CoreLogotype} alt="Core" />
+          </div>
+          <nav className='navbar'>
+              <ul className="links">
+                {navLinks.map(link => (
+                  <NavigationLink key={link.id} link={link} />
+                ))}
+            </ul>
+          </nav>
+        <ThemeToggle />
+        
         <button 
           className="menu-toggle" 
           onClick={() => setMenuOpen(prev => !prev)} /* togglar true -> false varje tryck på knappen */
         >
-          {menuOpen ? "✖" : "☰"}
+          {menuOpen ? <i className="fa-solid fa-xmark"></i> : <i className="fa-solid fa-bars"></i>}
         </button>
 
-      {menuOpen && (
         <nav className='navbar mobile'>
-          <ul className="links mobile">
+          <ul className={`links mobile ${menuOpen ? 'is-open' : ''}`}>
             {navLinks.map(link => (
               <NavigationLink key={link.id} link={link} />
             ))}
           </ul>
         </nav>
-      )}
-    </header>
-  )
-}
+      </header>
+    )
+  }
 
-export default Header
+  export default Header
