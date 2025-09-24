@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function LoginModal({ open, onClose, onSubmit }) {
     const overlayRef = useRef(null);
@@ -6,6 +6,8 @@ export default function LoginModal({ open, onClose, onSubmit }) {
     const firstTrapRef = useRef(null);
     const lastTrapRef = useRef(null);
     const formRef = useRef(null);
+
+    const [errors, setErrors] = useState({ email: "", password: "" });
 
     useEffect(() => {
         function onKeyDown(e) {
@@ -63,6 +65,30 @@ export default function LoginModal({ open, onClose, onSubmit }) {
             onClose();
         }
     }
+    
+    function validate(payload) {
+        let newErrors = { email: "", password: "" };
+        let valid = true;
+
+        if (!payload.email) {
+            newErrors.email = "Ange e-post adress.";
+            valid = false;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+            newErrors.email = "Ange en giltig e-post adress.";
+            valid = false;
+        }
+
+        if (!payload.password) {
+            newErrors.password = "Ange Lösenord.";
+            valid = false;
+        } else if (payload.password.length < 6) {
+            newErrors.password = "Lösenordet måsta vara minst 6 tecken långt.";
+            valid = false;
+        }
+
+        setErrors(newErrors);
+        return valid;
+    }
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -73,6 +99,8 @@ export default function LoginModal({ open, onClose, onSubmit }) {
             remember: Boolean(formData.get("remember")),
         };
 
+        if (!validate(payload)) return;
+
         try {
             await onSubmit?.(payload);
         } catch (err) {
@@ -80,9 +108,10 @@ export default function LoginModal({ open, onClose, onSubmit }) {
         }
     }
 
-    if (!open) return null;
 
-    return (
+    
+
+    return !open? null : (
         <div
             ref={overlayRef}
             className="lm-overlay"
@@ -110,6 +139,7 @@ export default function LoginModal({ open, onClose, onSubmit }) {
                             placeholder="you@example.com"
                             required
                         />
+                        {errors.email && <p className="form-error">{errors.email}</p>}
                     </div>
 
                     <div className="lm-field">
@@ -121,6 +151,7 @@ export default function LoginModal({ open, onClose, onSubmit }) {
                             placeholder="••••••••"
                             required
                         />
+                        {errors.password && <p className="form-error">{errors.password}</p>}
                     </div>
 
                     <div className="lm-row">
