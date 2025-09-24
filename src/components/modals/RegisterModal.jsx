@@ -77,7 +77,7 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
     errors.firstName || errors.lastName || errors.email ||
     errors.phone || errors.password || errors.confirm || '';
 
-  // --- Handlers ---
+  // --- Handlers --- fully genereted with chatgpt 5
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues(v => ({ ...v, [name]: value }));
@@ -126,7 +126,7 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
           <button className="rm-close" aria-label="Close" onClick={onClose} type="button">×</button>
         </header>
 
-        {summaryError && <div role="alert" className="form-error" style={{ marginBottom: '0.75rem' }}>{summaryError}</div>}
+        {summaryError && <div role="alert" className="form-error">{summaryError}</div>}
 
         <form noValidate className="rm-form" onSubmit={handleSubmit}>
           <div className="rm-row-2">
