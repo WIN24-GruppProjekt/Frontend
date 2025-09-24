@@ -12,6 +12,7 @@
           { id: uuidv4(), name: "Start", to: "/" },
           { id: uuidv4(), name: "Pass", to: "/pass" },
           { id: uuidv4(), name: "Om Oss", to: "/om" },
+          { id: uuidv4(), name: "Min Profil", to: "/profil" },
           { id: uuidv4(), name: "Komponenter"  , to: "/komponenter" }
       ]);
 
