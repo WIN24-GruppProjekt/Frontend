@@ -12,26 +12,29 @@ const SessionList = () => {
   const [dateTo, setDateTo] = useState('')
 
   useEffect(() => {
-    const getSessions = async () => {
+    const ac = new AbortController();
+
+    const getSessions = async () => { // Fetches session data from the API
       try {
-        setIsLoading(true)
-        const res = await fetch(
-          'https://eventsservices-dzgbahf4cuasa3b3.swedencentral-01.azurewebsites.net/api/Events',
-          { headers: { Accept: 'application/json' } }
-        )
-        if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`)
-        const json = await res.json()
-        setSessions(Array.isArray(json) ? json : [])
+        setIsLoading(true);
+        setError(null);
+
+        const data = await eventsApi.get('/api/Events', { signal: ac.signal });
+
+        setSessions(Array.isArray(data) ? data : []);
       } catch (e) {
-        console.error(e)
-        setError(e.message)
-        setSessions([])
+        if (e.name === 'AbortError') return; // Ignore abort errors
+        console.error(e);
+        setError(e.message || 'Någonting gick fel');
+        setSessions([]);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
-    getSessions()
-  }, [])
+    };
+
+    getSessions();
+    return () => ac.abort();
+  }, []);
 
   const getStartIso = (s) => s.starttime ?? s.startTime
 
@@ -46,13 +49,17 @@ const SessionList = () => {
       return t >= startMs && t <= endMs
     })
   }, [sessions, dateFrom, dateTo])
-
   // Sortera stigande efter starttid
   const sorted = useMemo(() => {
     return [...filtered].sort(
       (a, b) => new Date(getStartIso(a)) - new Date(getStartIso(b))
     )
   }, [filtered])
+    };
+
+    getSessions();
+    return () => ac.abort();
+  }, []);
 
   if (isLoading) {
     return (
