@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import ThemeToggle from '../components/ThemeToggle'
 import SessionList from '../components/SessionList'
 import LoginModal from '../components/modals/loginModal'
 import SignInButton from '../components/SignInButton'
@@ -14,7 +13,7 @@ const SessionListPage = () => {
 
   return (
     <div>
-        <h1> Body from SessionListPage.jsx</h1>
+        <h1 className='session-header'>Träningspass</h1>
         <SignInButton onClick={() => setLoginOpen(true)} />
 
             
