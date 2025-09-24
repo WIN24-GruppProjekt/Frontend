@@ -106,7 +106,6 @@ footer {
   padding-block: 1rem;
 }
 /* #region Header */
-
 header {
   position: relative;
   display: flex;
@@ -261,6 +260,14 @@ header {
 /* #endregion */
 
 /* #region Session */
+.session-header {
+  color: var(--clr-font-primary);
+  margin-right: auto;
+}
+
+.sessions-page-header {
+  margin-bottom: 1rem;
+}
 
 .session-card {
   display: flex;
@@ -351,11 +358,9 @@ header {
   width: 100%;
   border-radius: 1rem;
 }
-
 /* #endregion */
 
 /* #region Modal */
-
 .lm-overlay {
   position: fixed;
   inset: 0;
@@ -468,7 +473,6 @@ header {
   content: '\f3c5';
  }
 
-
  .lm-submit:active {
   transform: translateY(1px);
 }
@@ -497,7 +501,6 @@ header {
   gap: 10px;
 }
 
-
 .lm-social {
   border: 1px solid var(--clr-border);
   background: var(--clr-bg-secondary);
@@ -510,8 +513,6 @@ header {
   align-items: center;
   justify-content: center;
 }
-
-
 
 .rm-overlay {
   position: fixed;
@@ -633,6 +634,7 @@ header {
 .rm-submit:active {
   transform: translateY(1px);
 }
+
 /* #endregion */
 
 
@@ -713,6 +715,75 @@ header {
     width: fit-content;
   }
 
+/* #endregion */
+
+/* #region Filter */
+  .filter-toggle {
+    border: none;
+    font-style: bold;
+    font-weight: 500;
+    color: var(--clr-font-primary);
+    display: flex;
+    gap: .3rem;
+    width: fit-content;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    place-self: center;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .filter-panel {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  border: 1px solid var(--clr-border);
+  padding: 1rem;
+  border-radius: 1rem;
+  background: var(--clr-bg-secondary);
+  
+  @media (min-width: 768px) {
+    justify-content: left;
+  }
+}
+
+.filter-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+
+  input {
+    font-size: .75rem;
+    padding: .3rem;
+    
+    @media (min-width: 768px) {
+      font-size: 1rem;
+      min-width: 150px;
+    }
+  }
+}
+
+.filter-clear {
+  padding: .5rem;
+  width: 100%;
+  margin: 0;
+
+  @media (min-width: 768px) {
+    width: fit-content;
+    margin-left: auto;
+  }
+}
+
+.filter-status {
+  opacity: 0.7;
+  margin-bottom: 1rem;
+}
 /* #endregion */
 
 /* #region Spinners*/

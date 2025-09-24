@@ -35,7 +35,9 @@ const SessionListPage = () => {
 
   return (
     <div>
+        <h1 className='session-header'>Träningspass</h1>
         <h1> SessionListPage</h1>
+
         <SignInButton onClick={() => setLoginOpen(true)} />
         <SignUpButton onClick={() => setRegisterOpen(true)} />
 
