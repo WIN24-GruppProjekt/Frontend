@@ -55,17 +55,26 @@ p, li, span, label {
 }
 
 :root[data-theme="dark"]{
-  --clr-bg: #000000;
-  --clr-bg-secondary: #050005;
+  --clr-bg: #0E1116;
+  --clr-bg-secondary: #151A22;
 
-  --clr-font-primary: #ffffff;
-  --clr-font-secondary: #1F1F20;
-  --clr-font-text: #33334A;
-  --clr-header: #FF0000;
+  --clr-font-primary: #E6E6EA;
+  --clr-font-secondary: #C0C6CF;
+  --clr-font-text: #AAB2BF;
 
-  --clr-border: #eeeeee;
+  --clr-header: #FF4D4F;
+  --clr-navlink-primary: #D0D6E0;
+  --clr-navlink-hover: #FFFFFF;
 
-  --clr-btn-primary: #F44336;
+  --clr-border: #2B3240;
+
+  --clr-btn-primary: #FF5A4E;
+  --clr-btn-primary-hover: #FF796C;
+
+  --clr-error: #FF6B6B;
+  --clr-info: #4AA3FF;
+  --clr-success: #32D296;
+  --clr-warning: #FFB454;
 }
 
 .portal-wrapper {
@@ -636,9 +645,6 @@ header {
 }
 
 /* #endregion */
-
-
-
 
 /* #region Buttons */
 
