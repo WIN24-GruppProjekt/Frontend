@@ -1113,6 +1113,9 @@ header {
     color: var(--clr-border);
     background: var(--clr-font-text);
   }
+  .grey:hover {
+    background: var(--clr-navlink-hover);
+  }
   .signout {
     margin-top: auto;
     padding: 0px 32px;
@@ -1167,6 +1170,22 @@ header {
     flex-direction: column;
     width: fit-content;
   }
+
+/* #endregion */
+
+/* #region Profile */
+
+.profile-box {
+
+}
+
+.profile-form {
+
+}
+.profile-form-box {
+  display: flex;
+  flex-direction: column;
+}
 
 /* #endregion */
 
