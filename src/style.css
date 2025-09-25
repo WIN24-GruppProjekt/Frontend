@@ -1184,7 +1184,17 @@ header {
 }
 .profile-form-box {
   display: flex;
+  gap: 12px;
+}
+.profile-form-container {
+  display: flex;
   flex-direction: column;
+  gap: 5px;
+}
+.profile-form-input {
+  height: 30px;
+  border: none;
+  border-radius: 10px;
 }
 
 /* #endregion */
