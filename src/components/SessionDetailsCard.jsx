@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const SessionDetailsCard = ({ session }) => {
   if (!session) return null
@@ -20,6 +21,8 @@ const SessionDetailsCard = ({ session }) => {
 
   return (
     <section className="session-details-card">
+      <Link className='btn-back' to={"/pass"}><i class="fa-solid fa-arrow-left"></i></Link>
+
       <h1>{session.title}</h1>
       <p>{session.description}</p>
 
@@ -48,7 +51,6 @@ const SessionDetailsCard = ({ session }) => {
             </div>
         </button>
       </div>
-
     </section>
   )
 }

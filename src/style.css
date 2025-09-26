@@ -334,7 +334,7 @@ header {
   color: var(--clr-font-primary);
   margin-bottom: 1rem;
   border: 1px solid var(--clr-border);  
-  padding: 3rem;
+  padding: 2rem;
   border-radius: 1rem;
   background: var(--clr-bg-secondary);
   height: 100%;
@@ -656,6 +656,20 @@ header {
 /* #endregion */
 
 /* #region Buttons */
+
+.btn-back {
+  padding: .5rem;
+  margin-bottom: 1.5rem;
+  margin-right: auto;
+  border-radius: 50%;
+  border: 1px solid var(--clr-border);
+  background-color: var(--clr-btn-primary);
+  color: #FFFFFF;
+
+  &:hover {
+    background-color: var(--clr-btn-primary-hover);
+  }
+}
 
  .btn-box {
   margin: 19px;
