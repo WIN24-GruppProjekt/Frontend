@@ -6,6 +6,7 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
   const emailRef = useRef(null);
 
   const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState(''); // ★ server-/formfel
   const [values, setValues] = useState({
     firstName: '', lastName: '', email: '', phone: '',
     password: '', confirm: ''
@@ -23,6 +24,7 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
     if (!open) return;
 
     setSubmitting(false);
+    setFormError('');
     setTouched({ firstName:false,lastName:false,email:false,phone:false,password:false,confirm:false });
     setErrors({ firstName:'',lastName:'',email:'',phone:'',password:'',confirm:'' });
 
@@ -78,7 +80,7 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
     errors.firstName || errors.lastName || errors.email ||
     errors.phone || errors.password || errors.confirm || '';
 
-  // --- Handlers --- fully genereted with chatgpt 5
+  // --- Handlers ---
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues(v => ({ ...v, [name]: value }));
@@ -95,17 +97,51 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
   const onOverlayClick = (e) => {
     if (e.target === overlayRef.current) onClose?.();
   };
+
+  // Hjälper att läsa status från både fetch- och axios-liknande fel
+  function getStatus(err) {
+    return err?.response?.status ?? err?.status ?? err?.cause?.status;
+  }
+  function getServerMessage(err) {
+    return err?.response?.data?.message || err?.message || '';
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setTouched({ firstName:true,lastName:true,email:true,phone:true,password:true,confirm:true });
     const currentErrors = validateAll(values);
     setErrors(currentErrors);
+    setFormError('');
     if (!Object.values(currentErrors).every(x => !x)) return;
 
     try {
       setSubmitting(true);
       const { firstName, lastName, email, phone, password } = values;
-      await onSubmit?.({ firstName, lastName, email: email.trim(), phone: normalizePhone(phone), password });
+      await onSubmit?.({
+        firstName,
+        lastName,
+        email: email.trim(),
+        phone: normalizePhone(phone),
+        password
+      });
+      // Parent stänger modalen vid success
+    } catch (err) {
+      const status = getStatus(err);
+      const msg = (getServerMessage(err) || '').toLowerCase();
+
+      if (status === 409 || msg.includes('email') && msg.includes('exists')) {
+        // E-post redan registrerad
+        setErrors(prev => ({ ...prev, email: 'E-posten är redan registrerad.' }));
+        setTouched(prev => ({ ...prev, email: true }));
+        setFormError('E-posten är redan registrerad.');
+        emailRef.current?.focus();
+      } else if (status === 400 || status === 422) {
+        // Valideringsfel från server – visa generiskt eller servermeddelande
+        setFormError(getServerMessage(err) || 'Kunde inte skapa konto. Kontrollera fälten och försök igen.');
+      } else {
+        setFormError('Det gick inte att skapa konto just nu. Försök igen senare.');
+      }
+      console.error('Register failed:', err);
     } finally {
       setSubmitting(false);
     }
@@ -127,7 +163,11 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
           <button className="rm-close" aria-label="Close" onClick={onClose} type="button">×</button>
         </header>
 
-        {summaryError && <div role="alert" className="form-error">{summaryError}</div>}
+        {(summaryError || formError) && (
+          <div role="alert" className="form-error">
+            {formError || summaryError}
+          </div>
+        )}
 
         <form noValidate className="rm-form" onSubmit={handleSubmit}>
           <div className="rm-row-2">
@@ -137,6 +177,7 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
                 id="firstName" name="firstName" type="text" required placeholder="Jane"
                 value={values.firstName} onChange={handleChange} onBlur={handleBlur}
                 aria-invalid={!!errors.firstName} aria-describedby="firstName-error"
+                disabled={submitting}
               />
               {touched.firstName && errors.firstName && <p id="firstName-error" className="form-error">{errors.firstName}</p>}
             </div>
@@ -146,6 +187,7 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
                 id="lastName" name="lastName" type="text" required placeholder="Doe"
                 value={values.lastName} onChange={handleChange} onBlur={handleBlur}
                 aria-invalid={!!errors.lastName} aria-describedby="lastName-error"
+                disabled={submitting}
               />
               {touched.lastName && errors.lastName && <p id="lastName-error" className="form-error">{errors.lastName}</p>}
             </div>
@@ -159,6 +201,7 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
               value={values.email} onChange={handleChange} onBlur={handleBlur}
               autoComplete="email"
               aria-invalid={!!errors.email} aria-describedby="email-error"
+              disabled={submitting}
             />
             {touched.email && errors.email && <p id="email-error" className="form-error">{errors.email}</p>}
           </div>
@@ -170,6 +213,7 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
               value={values.phone} onChange={handleChange} onBlur={handleBlur}
               inputMode="tel" autoComplete="tel"
               aria-invalid={!!errors.phone} aria-describedby="phone-error"
+              disabled={submitting}
             />
             {touched.phone && errors.phone && <p id="phone-error" className="form-error">{errors.phone}</p>}
           </div>
@@ -182,6 +226,7 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
               value={values.password} onChange={handleChange} onBlur={handleBlur}
               autoComplete="new-password"
               aria-invalid={!!errors.password} aria-describedby="password-error"
+              disabled={submitting}
             />
             {touched.password && errors.password && <p id="password-error" className="form-error">{errors.password}</p>}
           </div>
@@ -194,6 +239,7 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
               value={values.confirm} onChange={handleChange} onBlur={handleBlur}
               autoComplete="new-password"
               aria-invalid={!!errors.confirm} aria-describedby="confirm-error"
+              disabled={submitting}
             />
             {touched.confirm && errors.confirm && <p id="confirm-error" className="form-error">{errors.confirm}</p>}
           </div>
@@ -203,9 +249,9 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
             <button type="submit" className="rm-submit" disabled={submitting || !allValid}>
               {submitting ? 'Creating…' : 'Create account'}
             </button>
-          </div>
 
-          <TermsOfUse />
+          </div>
+            <TermsOfUse />
         </form>
       </div>
     </div>
