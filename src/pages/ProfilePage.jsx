@@ -1,4 +1,5 @@
 import React, { useState, } from 'react'
+import submitEditProfile from '../js/Submits.js'
 
 const ProfilePage = () => {
     return (
@@ -6,6 +7,7 @@ const ProfilePage = () => {
             <h1>Min Profil</h1>
             <div className="profile-box">
                 <form className="profile-form">
+
                     <div className="profile-form-box">
                         <div className="profile-form-container">
                             <label htmlFor="firstName">Förnamn</label>
@@ -16,6 +18,7 @@ const ProfilePage = () => {
                             <input className="profile-form-input"></input>
                         </div>
                     </div>
+
                     <div className="profile-form-box">
                         <div className="profile-form-container">
                             <label htmlFor="changePassword">Byt Lösenord</label>
@@ -26,12 +29,14 @@ const ProfilePage = () => {
                             <input className="profile-form-input"></input>
                         </div>
                     </div>
-                    <button className="btn-box" onClick="">
-                        <div className="btn-standard large">OK</div>
-                    </button>
-                    <button className="btn-box grey" onClick="">
+
+                    <button className="btn-box grey" onClick={(e) => submitEditProfile(e)}>
                         <div className="btn-standard large">Spara</div>
                     </button>
+                    <button className="btn-box" onClick="">
+                        <div className="btn-standard large">Min Pass</div>
+                    </button>
+
                 </form>
             </div>
         </div>

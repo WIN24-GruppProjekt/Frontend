@@ -1111,11 +1111,12 @@ header {
   }
   .grey {
     color: var(--clr-border);
-    background: var(--clr-font-text);
+    background-color: var(--clr-font-text);
   }
   .grey:hover {
-    background: var(--clr-navlink-hover);
+    background-color: var(--clr-navlink-hover);
   }
+
   .signout {
     margin-top: auto;
     padding: 0px 32px;
@@ -1160,6 +1161,7 @@ header {
   .btn-box:hover {
     background-color: var(--clr-btn-primary-hover);
   }
+
   .btn-box:active {
     background-color: var(--clr-btn-primary-hover);
     transition: all 0.1s ease-in-out;
@@ -1176,7 +1178,9 @@ header {
 /* #region Profile */
 
 .profile-box {
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .profile-form {
@@ -1184,6 +1188,7 @@ header {
 }
 .profile-form-box {
   display: flex;
+  margin: 10px;
   gap: 12px;
 }
 .profile-form-container {
@@ -1193,6 +1198,7 @@ header {
 }
 .profile-form-input {
   height: 30px;
+  width: 250px;
   border: none;
   border-radius: 10px;
 }
