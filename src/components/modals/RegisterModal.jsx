@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import TermsOfUse from '../TermsOfUse';
 
 export default function RegisterModal({ open, onClose, onSubmit }) {
   const overlayRef = useRef(null);
@@ -203,6 +204,8 @@ export default function RegisterModal({ open, onClose, onSubmit }) {
               {submitting ? 'Creating…' : 'Create account'}
             </button>
           </div>
+
+          <TermsOfUse />
         </form>
       </div>
     </div>

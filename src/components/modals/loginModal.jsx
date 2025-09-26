@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import TermsOfUse from '../TermsOfUse';
 
 export default function LoginModal({ open, onClose, onSubmit }) {
     const overlayRef = useRef(null);
@@ -163,7 +164,7 @@ export default function LoginModal({ open, onClose, onSubmit }) {
                     </div>
 
                     <button className="lm-submit" type="submit">Sign in</button>
-
+                    <TermsOfUse />
                 </form>
             </div>
 
