@@ -27,6 +27,15 @@ p, li, span, label {
   font-size: 14px;
   margin-top: .25rem;
 }
+.TermsOfUseContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.TearmsOfUse{
+  font-size: 14px;
+  color: var(--clr-info);
+}
 
 :root{
   --clr-bg: #F0F1F3;
