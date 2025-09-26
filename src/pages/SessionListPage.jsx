@@ -6,14 +6,44 @@ import SignInButton from '../components/SignInButton'
 import SignUpButton from '../components/SignUpButton'
 import SignOutButton from '../components/SignOutButton'
 import { authApi, setToken } from '../lib/api'
+import { jwtDecode } from 'jwt-decode'
 
 const SessionListPage = () => {
       const [loginOpen, setLoginOpen] = useState(false);
       const [registerOpen, setRegisterOpen] = useState(false);
       const [isAuthed, setIsAuthed] = useState(false);
+      const [decodedToken, setDecodedToken] = useState(null);
 
-      const hasToken = () => //Lightweight check for token presence
-        !!(localStorage.getItem("authToken") || sessionStorage.getItem("authToken"))
+      const hasToken = () => {//Lightweight check for token presence
+        const token = (localStorage.getItem("authToken") || sessionStorage.getItem("authToken"));
+
+        if (token){
+            try {
+              const tokenPayload = jwtDecode(token);
+              setDecodedToken(tokenPayload);
+              const exp = tokenPayload.exp;
+
+              if (exp * 1000 > Date.now()) {
+                return true; //still valid
+              } else {
+                //token has expired
+                localStorage.removeItem("authToken");
+                sessionStorage.removeItem("authToken");
+                localStorage.removeItem("rememberLogin");
+                alert("You have been logged out. Your session has expired.")
+                return false;
+              }
+            } catch {
+                // if token cant be decoded or is corrupted
+                localStorage.removeItem("authToken");
+                sessionStorage.removeItem("authToken");
+                localStorage.removeItem("rememberLogin");
+                alert("You have been logged out due to invalid session");
+                return false;
+            }
+        }
+      }
+
 
       useEffect(() => {
         setIsAuthed(hasToken())
@@ -59,7 +89,12 @@ const SessionListPage = () => {
         <h1 className='session-header'>Träningspass</h1>
 
       {isAuthed ? (
-        <SignOutButton />
+        <>
+          <p>Hej, {decodedToken.FirstName}</p>
+          <p>({decodedToken.email})</p>
+          <SignOutButton />
+        </>
+      
       ) : (
         <>
           <SignInButton onClick={() => setLoginOpen(true)} />
