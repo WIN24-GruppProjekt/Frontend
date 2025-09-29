@@ -70,6 +70,7 @@ const SessionList = () => {
   }
 
   return (
+    <>
     <section className='session-page' id="sessions">
       <DateRangeFilter
         from={dateFrom}
@@ -83,11 +84,13 @@ const SessionList = () => {
         // // className="custom-class" 
         // // showIcon={false}
       />
-
+      </section>
+      <section className='session-card-container'>
       {sorted.length > 0
         ? sorted.map((session) => <SessionCard key={session.id} item={session} />)
         : <p>Inga pass tillgängliga för vald tidsperiod</p>}
-    </section>
+      </section>
+    </>
   )
 }
 

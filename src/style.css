@@ -291,12 +291,16 @@ header {
   display: flex;
   flex-direction: column;
   text-decoration: none;
+  gap: .5rem;
+  justify-content: space-between;
   color: var(--clr-font-primary);
   margin-bottom: 1rem;
   border: 1px solid var(--clr-border);  
   padding: 1rem;
   border-radius: 1rem;
   background: var(--clr-bg-secondary);
+  max-height: 12rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.10);
 }
 
 .session-card-description {
@@ -346,6 +350,28 @@ header {
   li {
     list-style: circle;
   }
+}
+
+.session-card-container{
+  margin: 0 auto;
+  width: 95%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+  @media (min-width: 992px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.login-register-container{
+  display: flex;
+  justify-content: center;
 }
 
 .theme-toggle{
