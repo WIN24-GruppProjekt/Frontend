@@ -7,7 +7,7 @@ const PortalLayout = () => {
   return (
       <div className='portal-wrapper'>
         <Header />
-        <main>
+        <main className='animate__animated animate__fadeInLeft'>
             <Outlet />
         </main>
         <Footer />
