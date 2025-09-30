@@ -15,7 +15,11 @@ const SessionListPage = () => {
       const [decodedToken, setDecodedToken] = useState(null);
 
       const hasToken = () => {//Lightweight check for token presence
-        const token = (localStorage.getItem("authToken") || sessionStorage.getItem("authToken"));
+        // Check if user chose to be remembered
+        const rememberLogin = localStorage.getItem("rememberLogin");
+        
+        // If remember me was selected, check localStorage; otherwise check sessionStorage
+        const token = rememberLogin ? localStorage.getItem("authToken") : sessionStorage.getItem("authToken");
 
         if (token){
             try {
@@ -42,6 +46,7 @@ const SessionListPage = () => {
                 return false;
             }
         }
+        return false;
       }
 
 
@@ -64,9 +69,17 @@ const SessionListPage = () => {
     const data = await authApi.post('/api/Login', { email, password });
     if (!data?.token) throw new Error('Token saknas i svar.');
 
-    setToken(data.token);
+    setToken(data.token, remember);
     if (remember) localStorage.setItem('rememberLogin', '1');
     else localStorage.removeItem('rememberLogin');
+
+    // Decode the token and set the decoded token state
+    try {
+      const tokenPayload = jwtDecode(data.token);
+      setDecodedToken(tokenPayload);
+    } catch (error) {
+      console.error('Failed to decode token:', error);
+    }
 
     setIsAuthed(true);         
     setLoginOpen(false);
@@ -90,8 +103,8 @@ const SessionListPage = () => {
 
       {isAuthed ? (
         <>
-          <p>Hej, {decodedToken.FirstName}</p>
-          <p>({decodedToken.email})</p>
+          <p>Hej, {decodedToken?.FirstName || 'Användare'}</p>
+          <p>({decodedToken?.email || 'No email'})</p>
           <SignOutButton />
         </>
       
