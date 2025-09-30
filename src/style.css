@@ -31,7 +31,8 @@ p, li, span, label {
 .form-error{
   color: var(--clr-error);
   font-size: 14px;
-  margin-top: .25rem;
+  margin-top: .5rem;
+  margin-left:1rem;
 }
 .TermsOfUseContainer{
   display: flex;
@@ -543,6 +544,9 @@ header {
   color: var(--clr-font-primary);
   margin-right: auto;
 }
+.session-page{
+  margin: 0 1rem 0 1rem;
+}
 
 .sessions-page-header {
   margin-bottom: 1rem;
@@ -562,6 +566,14 @@ header {
   background: var(--clr-bg-secondary);
   max-height: 12rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+}
+.session-add{
+  height: 12rem;
+  border: 1px dashed var(--clr-border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 .session-card-description {
@@ -614,8 +626,8 @@ header {
 }
 
 .session-card-container{
-  margin: 0 auto;
-  width: 95%;
+  margin: 0 1rem 0 1rem;
+  
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
@@ -940,10 +952,135 @@ header {
   transform: translateY(1px);
 }
 
+.cs-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,.5);
+  padding: 1rem;
+  z-index: 1000;
+  animation: lm-fade .15s ease-out;
+}
+.cs-dialog {
+  width: 100%;
+  max-width: 520px; 
+  background: var(--clr-bg-secondary);
+  color: var(--clr-font-primary);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  overflow: hidden;
+  border: 1px solid var(--clr-border);
+  transform: translateY(4px);
+  animation: lm-pop .18s ease-out;
+}
+
+.cs-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-bg-secondary);
+  padding:1rem;
+}
+#cs-title, .cs-title {
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: .2px;
+}
+.cs-close {
+  border: none;
+  background: transparent;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--clr-font-primary);
+  cursor: pointer;
+}
+
+.cs-form {
+  padding: 18px;
+  background: var(--clr-bg-secondary);
+}
+.cs-field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.cs-field label {
+  font-size: .9rem;
+  color: var(--clr-border);
+}
+
+.cs-field input,
+.cs-field select,
+.cs-field textarea {
+  width: 100%;
+  border: 1px solid var(--clr-border);
+  background: var(--clr-bg-secondary);
+  color: var(--clr-font-primary);
+  border-radius: 10px;
+  padding: 10px 12px;
+  outline: none;
+}
+.cs-field textarea { min-height: 96px; resize: vertical; }
+.cs-field input:focus,
+.cs-field select:focus,
+.cs-field textarea:focus {
+  border-color: var(--clr-border);
+  box-shadow: 0 0 0 3px rgba(124,197,255,.15);
+}
+
+.cs-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+/* Actions */
+.cs-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+.cs-cancel {
+  border: 1px solid var(--clr-border);
+  background: var(--clr-bg-secondary);
+  color: var(--clr-font-primary);
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+.cs-submit {
+  border: none;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--clr-btn-primary);
+  color: var(--clr-bg-secondary);
+  font-weight: 600;
+  cursor: pointer;
+}
+.cs-submit:active { transform: translateY(1px); }
+
 /* #endregion */
 
 /* #region Buttons */
-
+.session-add-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--clr-btn-primary);
+  border-radius: 30%;
+  border: none;
+  padding:1rem;
+  i{
+    color: var(--clr-info);
+  }
+}
 .btn-back {
   padding: .5rem;
   margin-bottom: 1.5rem;

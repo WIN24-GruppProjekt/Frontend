@@ -2,38 +2,47 @@ import React, { useEffect, useMemo, useState } from 'react'
 import SessionCard from '../components/SessionCard'
 import { ClipLoader } from 'react-spinners'
 import DateRangeFilter from './DateRangeFilter'
-import { eventsApi } from '../lib/api';
+import { eventsApi, parseJwt, getUserIdFromToken, getRolesFromToken } from '../lib/api';
+import CreateSessionButton from '../components/CreateSessionButton'
+import CreateSessionModal from '../components/modals/CreateSessionModal'
 
 const SessionList = () => {
-  const [sessions, setSessions] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+   const [sessions, setSessions] = useState([])
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const [dateFrom, setDateFrom] = useState('');
-  const [dateTo, setDateTo] = useState('');
+  const [dateFrom, setDateFrom] = useState('')
+  const [dateTo, setDateTo] = useState('')
 
-  useEffect(() => {
-    const ac = new AbortController();
+  const [createOpen, setCreateOpen] = useState(false)
 
-    const getSessions = async () => {
+  // auth/role-gating
+  const trainerId = getUserIdFromToken()
+  const roles = getRolesFromToken()
+  const isInstructor = roles.map(r => String(r).toLowerCase()).includes('instructor')
+  const canCreate = Boolean(trainerId && isInstructor)
+
+  
+ useEffect(() => {
+    const ac = new AbortController()
+    ;(async () => {
       try {
-        setIsLoading(true);
-        setError(null);
-        const data = await eventsApi.get('/api/Events', { signal: ac.signal });
-        setSessions(Array.isArray(data) ? data : []);
+        setIsLoading(true)
+        setError(null)
+        const data = await eventsApi.get('/api/Events', { signal: ac.signal })
+        setSessions(Array.isArray(data) ? data : [])
       } catch (e) {
-        if (e.name === 'AbortError') return;
-        console.error(e);
-        setError(e.message || 'Någonting gick fel');
-        setSessions([]);
+        if (e.name !== 'AbortError') {
+          console.error(e)
+          setError(e.message || 'Någonting gick fel')
+          setSessions([])
+        }
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
-    };
-
-    getSessions();
-    return () => ac.abort();
-  }, []);
+    })()
+    return () => ac.abort()
+  }, [])
 
   const getStartIso = (s) => s.starttime ?? s.startTime;
 
@@ -47,10 +56,22 @@ const SessionList = () => {
       return t >= startMs && t <= endMs;
     });
   }, [sessions, dateFrom, dateTo]);
-
   const sorted = useMemo(() => {
     return [...filtered].sort((a, b) => new Date(getStartIso(a)) - new Date(getStartIso(b)));
   }, [filtered]);
+
+  async function handleCreated(created) {
+    if (created?.id) {
+      setSessions(prev => [...prev, created])
+    } else {
+      try {
+        const data = await eventsApi.get('/api/Events')
+        setSessions(Array.isArray(data) ? data : [])
+      } catch (e) {
+        console.warn('Kunde inte refetcha efter skapande', e)
+      }
+    }
+  }
 
   if (isLoading) {
     return (
@@ -67,6 +88,19 @@ const SessionList = () => {
         <p>Kunde inte hämta pass: {error}</p>
       </section>
     );
+  }
+
+  async function handleCreated(created) {
+    if (created?.id) {
+      setSessions(prev => [...prev, created])
+    } else {
+      try {
+        const data = await eventsApi.get('/api/Events')
+        setSessions(Array.isArray(data) ? data : [])
+      } catch (e) {
+        console.warn('Kunde inte refetcha efter skapande', e)
+      }
+    }
   }
 
   return (
@@ -89,7 +123,18 @@ const SessionList = () => {
       {sorted.length > 0
         ? sorted.map((session) => <SessionCard key={session.id} item={session} />)
         : <p>Inga pass tillgängliga för vald tidsperiod</p>}
+        {canCreate && (
+          <CreateSessionButton onClick={() => setCreateOpen(true)} />
+        )}
       </section>
+      {canCreate && (
+        <CreateSessionModal
+          open={createOpen}
+          onClose={() => setCreateOpen(false)}
+          onCreate={handleCreated}
+          trainerId={trainerId}
+        />
+      )}
     </>
   )
 }
