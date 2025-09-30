@@ -17,7 +17,7 @@
 
     return (
       <header>
-          <div className='head-logo'>
+          <div className='head-logo animate__animated animate__flip'>
             <img src={CoreLogotype} alt="Core" />
           </div>
           <nav className='navbar'>
@@ -27,7 +27,6 @@
                 ))}
             </ul>
           </nav>
-        <ThemeToggle />
         
         <button 
           className="menu-toggle" 

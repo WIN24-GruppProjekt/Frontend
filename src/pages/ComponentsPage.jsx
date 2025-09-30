@@ -8,7 +8,7 @@ import SessionCardButtons from '../components/SessionCardButtons'
 const ComponentsPage = () => {
   return (
     <div>
-      <h1>Body from ComponentsPage.jsx</h1>
+      <h1>Body from ComponentsPage</h1>
       <SignInButton />
       <SignOutButton />
       <MobileSignIn />

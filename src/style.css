@@ -1,7 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap');
+
+/* #region Generics */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+body{
+  background: var(--clr-bg);
 }
 button, a, li{
   cursor: pointer;
@@ -36,8 +42,8 @@ p, li, span, label {
   font-size: 14px;
   color: var(--clr-info);
 }
-
-:root{
+/* Gammalt tema, finns kvar om jag skulle ånga mig om bara mörkt tema.*/
+/* :root{
   --clr-bg: #F0F1F3;
   --clr-bg-secondary: #FFFFFF;
 
@@ -84,7 +90,31 @@ p, li, span, label {
   --clr-info: #4AA3FF;
   --clr-success: #32D296;
   --clr-warning: #FFB454;
+} */
+
+:root{
+  --clr-bg: #0E1116;
+  --clr-bg-secondary: #151A22;
+
+  --clr-font-primary: #E6E6EA;
+  --clr-font-secondary: #C0C6CF;
+  --clr-font-text: #AAB2BF;
+
+  --clr-header: #FF4D4F;
+  --clr-navlink-primary: #D0D6E0;
+  --clr-navlink-hover: #FFFFFF;
+
+  --clr-border: #2B3240;
+
+  --clr-btn-primary: #FF5A4E;
+  --clr-btn-primary-hover: #FF796C;
+
+  --clr-error: #FF6B6B;
+  --clr-info: #4AA3FF;
+  --clr-success: #32D296;
+  --clr-warning: #FFB454;
 }
+
 
 .portal-wrapper {
   max-width: 575.98px;
@@ -123,6 +153,237 @@ footer {
   justify-content: center;
   padding-block: 1rem;
 }
+
+/* #endregion */
+
+/* #region LandingPage */
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100vw;
+    min-width: 320px;
+    height: 100vh;
+    min-height: 600px;
+    background-image: url("img/Josips-eyecandy.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    @media screen and (max-width: 900px) {
+        background-image: url("img/small-landing.webp");
+    }
+}
+.logo-container {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    max-width: 10rem;
+    max-height: 10rem;
+    z-index: 1;
+
+
+    .landing-logo {
+        width: 100%;
+        height: auto;
+        max-width: 10rem;
+        object-fit: contain;
+    }
+}
+.welcome-header {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+    margin-top: 6rem;
+    orphans: 2;
+    widows: 2;
+    text-wrap: balance;
+}
+p {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    orphans: 2;
+    widows: 2;
+    text-wrap: balance;
+}
+a {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.landing-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+
+    @media screen and (max-width: 900px) {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}
+.text-container,
+.explore-container {
+    color: white;
+    z-index: 2;
+    text-align: center;
+}
+.explore-text {
+    margin-top: 2.5rem;
+    text-align: left;
+}
+a {
+    color: white;
+    text-decoration: underline;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+a:hover {
+    color: red;
+}
+.create-account-link {
+    padding: 1rem;
+    display: block;
+    width: fit-content;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border-radius: .5rem;
+    margin: 2rem auto;
+
+    @media screen and (min-width: 900px) {
+        margin: 2rem 0;
+    }
+
+    &:hover {
+        background-color: red;
+        color: white;
+    }
+}
+.footer {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+.footer-text {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 0.8rem;
+    color: rgb(150, 147, 147);
+    text-align: center;
+    margin: 0;
+}
+@media screen and (min-width: 900px) {
+    .landing-container {
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .text-container {
+        position: absolute;
+        top: 8rem;
+        left: 2rem;
+        max-width: 40%;
+        min-width: 300px;
+        text-align: left;
+    }
+
+    .explore-container {
+        position: absolute;
+        bottom: 7.5rem;
+        right: 2rem;
+        max-width: 40%;
+        min-width: 300px;
+        text-align: left;
+    }
+}
+@media screen and (max-width: 768px) {
+
+    .landing-container {
+        width: 100%;
+        margin-bottom: 2rem;
+        overflow-x: hidden;
+    }
+
+    .welcome-header {
+        font-size: 3rem;
+    }
+
+    .text-container,
+    .explore-container {
+        position: relative;
+        max-width: 90%;
+        min-width: 280px;
+        padding-bottom: 1rem;
+    }
+
+    .explore-text {
+        text-align: center;
+    }
+
+    .logo-container {
+        width: 4.5rem;
+        top: 0;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer-text {
+        text-align: center;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 480px) {
+    .landing-container {
+        width: 100%;
+        min-width: 320px;
+        padding: 0 1rem;
+        padding-bottom: 3rem;
+        overflow-x: hidden;
+    }
+
+    .welcome-header {
+        font-size: 2.5rem;
+        margin-top: 4rem;
+    }
+
+    .text-container,
+    .explore-container {
+        min-width: 280px;
+        max-width: 95%;
+        padding-bottom: 1.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+}
+/* #endregion */
+
+
 /* #region Header */
 header {
   position: relative;
