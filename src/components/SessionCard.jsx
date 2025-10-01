@@ -55,9 +55,9 @@ const SessionCard = ({item}) => {
       <span className='session-card-description'>{item.description}</span>
       <span className='session-card-time'>{formatStart(item.startTime)} - {formatEnd(item.endTime)}</span>
       <span className='session-card-location'>{item.location}, {item.locationRoom}</span>
-      {booked !== null && capacity !== null && ( // vänta på att båda laddas
+      {booked !== null && roomCapacity !== null && ( // vänta på att båda laddas
         <span className='session-card-spots'>
-          {booked}/{capacity} platser bokade
+          {booked}/{roomCapacity} platser bokade
         </span>
       )}
     </Link>
