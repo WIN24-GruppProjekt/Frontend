@@ -1,16 +1,18 @@
 import React, { useEffect, useState, } from 'react'
-import submitEditProfile from '../js/Submits.js'
+import Profile from '../components/Profile.jsx'
 
 const ProfilePage = () => {
 
     const [placeHolders, setPlaceHolders] = useState({
         firstName: '',
         lastName: '',
+        email: '',
     })
 
     const [form, setForm] = useState({
         firstName: '',
         lastName: '',
+        email: '',
         newPassword: '',
         confirmPassword: '',
     })
@@ -20,47 +22,17 @@ const ProfilePage = () => {
 
     useEffect(() => {
 
+    })
+
+    if (loading) return <div>Laddar...</div>
 
     return (
         <div>
             <h1>Min Profil</h1>
-            <div className="profile-box">
-                <form className="profile-form">
-
-                    <div className="profile-form-box">
-                        <div className="profile-form-container">
-                            <label htmlFor="firstName">Förnamn</label>
-                            <input className="profile-form-input"></input>
-                        </div>
-                        <div className="profile-form-container">
-                            <label htmlFor="lastName">Efternamn</label>
-                            <input className="profile-form-input"></input>
-                        </div>
-                    </div>
-
-                    <div className="profile-form-box">
-                        <div className="profile-form-container">
-                            <label htmlFor="changePassword">Byt Lösenord</label>
-                            <input className="profile-form-input"></input>
-                        </div>
-                        <div className="profile-form-container">
-                            <label htmlFor="firstName">Bekräfta Lösenord</label>
-                            <input className="profile-form-input"></input>
-                        </div>
-                    </div>
-
-                    <button className="btn-box grey" onClick={(e) => submitEditProfile(e)}>
-                        <div className="btn-standard large">Spara</div>
-                    </button>
-                    <button className="btn-box" onClick="">
-                        <div className="btn-standard large">Min Pass</div>
-                    </button>
-
-                </form>
-            </div>
+            <Profile />
         </div>
     )
-})}
+}
 
 
 export default ProfilePage

@@ -1039,7 +1039,7 @@ header {
   margin-bottom: 14px;
 }
 
-/* Actions */
+/* #region Actions */
 .cs-actions {
   display: flex;
   gap: 10px;
@@ -1192,6 +1192,7 @@ header {
   gap: 12px;
 }
 .profile-form-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 5px;
