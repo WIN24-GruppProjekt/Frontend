@@ -7,6 +7,7 @@ import AboutPage from './pages/AboutPage'
 import ComponentsPage from './pages/ComponentsPage'
 import SessionDetailsPage from './pages/SessionDetailsPage'
 import ProfilePage from './pages/ProfilePage'
+import Placeholder from './pages/PlaceholderPage'
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
         <Route path='/pass' element={<SessionListPage />} />
         <Route path='/pass/info/:id' element={<SessionDetailsPage />} />
         <Route path='/om' element={<AboutPage />} />
-        <Route path='/profil' element={<ProfilePage />} />
+        <Route path='/profil' element={<Placeholder />} />
         <Route path='/komponenter' element={<ComponentsPage />} />
       </Route>
 

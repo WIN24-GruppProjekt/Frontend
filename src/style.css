@@ -1293,5 +1293,17 @@ header {
 
 /* #endregion */
 
+/* #region Placeholder */
+
+.placeholder {
+  margin: 2rem auto;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--clr-font-primary);
+  display: grid;
+  place-items: center;
+}
+
+/* #endregion */
 @keyframes lm-fade { from { opacity: 0 } to { opacity: 1 } }
 @keyframes lm-pop { from { opacity: 0; transform: translateY(10px) scale(.98) } to { opacity: 1; transform: translateY(0) scale(1) } }
