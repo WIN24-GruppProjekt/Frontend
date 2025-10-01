@@ -114,6 +114,9 @@ p, li, span, label {
   --clr-info: #4AA3FF;
   --clr-success: #32D296;
   --clr-warning: #FFB454;
+
+  --font-fa-free: "Font Awesome 7 Free";
+  --font-fa-brands: "Font Awesome 7 Brands";
 }
 
 
