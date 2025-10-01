@@ -1,10 +1,9 @@
-import React, { useEffect, useState, } from 'react'
+import React from 'react'
 import submitEditProfile from '../js/Submits.js'
 
-const Profile = () => {
+const Profile = ({ value, placeHolders, editing, errors, saving, onChange, onToggle, onSubmit }) => {
 
     return (
-        <div className="profile-box">
             <form className="profile-form" onSubmit={onSubmit}>
                 <div className="profile-form-box">
                     <EditTableInput
@@ -12,7 +11,7 @@ const Profile = () => {
                     label="Förnamn"
                     name="firstName"
                     value={form.firstName}
-                    placerholder={placeHolders.firstName || 'Förnamn'}
+                    placeholder={placeHolders.firstName || 'Förnamn'}
                     readonly={!editing.firstName}
                     onChange={onChange}
                     onToggle={() => onToggle('firstName')}
@@ -23,7 +22,7 @@ const Profile = () => {
                     label="Efternamn"
                     name="lastName"
                     value={form.lastName}
-                    placerholder={placeHolders.lastName || 'Efternamn'}
+                    placeholder={placeHolders.lastName || 'Efternamn'}
                     readonly={!editing.lastName}
                     onChange={onChange}
                     onToggle={() => onToggle('lastName')}
@@ -36,7 +35,7 @@ const Profile = () => {
                     label="E-post"
                     name="email"
                     value={form.email}
-                    placerholder={placeHolders.email || "namn@exempel.se"}
+                    placeholder={placeHolders.email || "namn@exempel.se"}
                     readonly={!editing.email}
                     onChange={onChange}
                     onToggle={() => onToggle('email')}
@@ -50,7 +49,7 @@ const Profile = () => {
                     name="newPassword"
                     type="password"
                     value={form.newPassword}
-                    placerholder="Nytt Lösenord"
+                    placeholder="Nytt Lösenord"
                     readonly={!editing.newPassword}
                     onChange={onChange}
                     onToggle={() => onToggle('newPassword')}
@@ -63,7 +62,7 @@ const Profile = () => {
                     name="confirmPassword"
                     type="password"
                     value={form.confirmPassword}
-                    placerholder="Bekräfta Lösenord"
+                    placeholder="Bekräfta Lösenord"
                     readonly={!editing.confirmPassword}
                     onChange={onChange}
                     onToggle={() => onToggle('confirmPassword')}
@@ -79,7 +78,6 @@ const Profile = () => {
                 </button>
 
             </form>
-        </div>
     )
 
 }

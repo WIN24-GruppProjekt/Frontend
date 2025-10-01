@@ -29,7 +29,15 @@ const ProfilePage = () => {
     return (
         <div>
             <h1>Min Profil</h1>
-            <Profile />
+            <div className="profile-box">
+                <Profile
+                    values={form}
+                    placeHolders={placeHolders}
+                    saving={saving}
+                    onChange={onChange}
+                    onSubmit={submitEditProfile}
+                />
+            </div>
         </div>
     )
 }
