@@ -1,82 +1,81 @@
 import React from 'react'
 import submitEditProfile from '../js/Submits.js'
 
-const Profile = ({ value, placeHolders, editing, errors, saving, onChange, onToggle, onSubmit }) => {
+const Profile = ({ values, placeholders, editing, errors, saving, onChange, onToggle, onSubmit }) => {
 
     return (
             <form className="profile-form" onSubmit={onSubmit}>
                 <div className="profile-form-box">
-                    <EditTableInput
-                    id="firstName"
-                    label="Förnamn"
-                    name="firstName"
-                    value={form.firstName}
-                    placeholder={placeHolders.firstName || 'Förnamn'}
-                    readonly={!editing.firstName}
-                    onChange={onChange}
-                    onToggle={() => onToggle('firstName')}
-                    />
-
-                    <EditTableInput
-                    id="lastName"
-                    label="Efternamn"
-                    name="lastName"
-                    value={form.lastName}
-                    placeholder={placeHolders.lastName || 'Efternamn'}
-                    readonly={!editing.lastName}
-                    onChange={onChange}
-                    onToggle={() => onToggle('lastName')}
-                    />
+                    <div className="profile-form-container">
+                        <input
+                        id="firstName"
+                        label="Förnamn"
+                        name="firstName"
+                        className="profile-form-input"
+                        value={values.firstName}
+                        placeholder={placeholders.firstName || 'Förnamn'}
+                        onChange={onChange}
+                        />
+                    </div>
+                
+                    <div className="profile-form-container">
+                        <input
+                        id="lastName"
+                        label="Efternamn"
+                        name="lastName"
+                        className="profile-form-input"
+                        value={values.lastName}
+                        placeholder={placeholders.lastName || 'Efternamn'}
+                        onChange={onChange}
+                        />
+                    </div>
                 </div>
 
                 <div className="profile-form-box">
-                    <EditTableInput
-                    id="email"
-                    label="E-post"
-                    name="email"
-                    value={form.email}
-                    placeholder={placeHolders.email || "namn@exempel.se"}
-                    readonly={!editing.email}
-                    onChange={onChange}
-                    onToggle={() => onToggle('email')}
-                    />
+                    <div className="profile-form-container">
+                        <EditTableInput
+                        id="email"
+                        label="E-post"
+                        name="email"
+                        className="profile-form-input"
+                        value={values.email}
+                        placeholder={placeholders.email || "namn@exempel.se"}
+                        onChange={onChange}
+                        />
+                    </div>
                 </div>
 
                 <div className="profile-form-box">
-                    <EditTableInput
-                    id="newPassword"
-                    label="Nytt Lösenord"
-                    name="newPassword"
-                    type="password"
-                    value={form.newPassword}
-                    placeholder="Nytt Lösenord"
-                    readonly={!editing.newPassword}
-                    onChange={onChange}
-                    onToggle={() => onToggle('newPassword')}
-                    error={errors.newPassword}
-                    />
+                    <div className="profile-form-container">
+                        <label htmlFor="newPassword">Nytt Lösenord</label>
+                        <input
+                        id="newPassword"
+                        name="newPassword"
+                        type="password"
+                        className="profile-form-input"
+                        value={values.newPassword}
+                        placeholder="Nytt Lösenord"
+                        onChange={onChange}
+                        />
+                    </div>
 
-                    <EditTableInput
-                    id="confirmPassword"
-                    label="Bekräfta Lösenord"
-                    name="confirmPassword"
-                    type="password"
-                    value={form.confirmPassword}
-                    placeholder="Bekräfta Lösenord"
-                    readonly={!editing.confirmPassword}
-                    onChange={onChange}
-                    onToggle={() => onToggle('confirmPassword')}
-                    hidePencil
-                    />
+                    <div className="profile-form-container">
+                        <label htmlFor="confirmPassword">Bekräfta Lösenord</label>
+                        <input
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        type="password"
+                        className="profile-form-input"
+                        value={values.confirmPassword}
+                        placeholder="Bekräfta Lösenord"
+                        onChange={onChange}
+                        />
+                    </div>
                 </div>
 
-                <button className="btn-box grey" onClick={(e) => submitEditProfile(e)}>
-                    <div className="btn-standard large">Spara</div>
+                <button className="btn-box grey" type='submit' disabled={saving}>
+                    <div className="btn-standard large">{saving ? "Sparar..." : "Spara"}</div>
                 </button>
-                <button className="btn-box" onClick="">
-                    <div className="btn-standard large">Min Pass</div>
-                </button>
-
             </form>
     )
 
