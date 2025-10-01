@@ -5,7 +5,7 @@ import RegisterModal from '../components/modals/RegisterModal'
 import SignInButton from '../components/SignInButton'
 import SignUpButton from '../components/SignUpButton'
 import SignOutButton from '../components/SignOutButton'
-import { authApi, setToken } from '../lib/api'
+import { authApi, setToken, getToken } from '../lib/api'
 import { jwtDecode } from 'jwt-decode'
 
 const SessionListPage = () => {
@@ -14,57 +14,124 @@ const SessionListPage = () => {
       const [isAuthed, setIsAuthed] = useState(false);
       const [decodedToken, setDecodedToken] = useState(null);
 
-      const hasToken = () => {//Lightweight check for token presence
-        // Check if user chose to be remembered
-        const rememberLogin = localStorage.getItem("rememberLogin");
-        
-        // If remember me was selected, check localStorage; otherwise check sessionStorage
-        const token = rememberLogin ? localStorage.getItem("authToken") : sessionStorage.getItem("authToken");
+      /**
+     * Checks if a valid token exists.
+     * - Reads token from storage (via getToken).
+     * - Decodes token and checks expiry.
+     * - Optionally sets decoded payload in state.
+     * - If expired or invalid, clears token.
+     */
+    function hasTokenAndIsValid(setDecodedToken) {
+      const token = getToken()
+      if (!token) return false
 
-        if (token){
-            try {
-              const tokenPayload = jwtDecode(token);
-              setDecodedToken(tokenPayload);
-              const exp = tokenPayload.exp;
+      try {
+        const payload = jwtDecode(token)
+        const expMs = (payload.exp ?? 0) * 1000
 
-              if (exp * 1000 > Date.now()) {
-                return true; //still valid
-              } else {
-                //token has expired
-                localStorage.removeItem("authToken");
-                sessionStorage.removeItem("authToken");
-                localStorage.removeItem("rememberLogin");
-                alert("You have been logged out. Your session has expired.")
-                return false;
-              }
-            } catch {
-                // if token cant be decoded or is corrupted
-                localStorage.removeItem("authToken");
-                sessionStorage.removeItem("authToken");
-                localStorage.removeItem("rememberLogin");
-                alert("You have been logged out due to invalid session");
-                return false;
-            }
+        if (expMs > Date.now()) {
+          // Save decoded token in state for UI (optional)
+          setDecodedToken?.(payload)
+          return true
         }
-        return false;
+
+        // Token expired → clear it
+        setToken(null, false)
+        return false
+      } catch {
+        // Token invalid → clear it
+        setToken(null, false)
+        return false
+      }
+    }
+
+    useEffect(() => {
+      const recompute = () => setIsAuthed(hasTokenAndIsValid(setDecodedToken))
+
+      // Run check once on mount
+      recompute()
+
+      // Fires when localStorage changes (e.g. login in another tab)
+      const onStorage = (e) => {
+        if (e.key === 'authToken' || e.key === 'rememberLogin') recompute()
       }
 
+      // Custom event dispatched by setToken() (covers both localStorage and sessionStorage)
+      const onAuthChanged = () => recompute()
 
-      useEffect(() => {
-        setIsAuthed(hasToken())
+      // Re-check when user returns to the tab (in case token expired)
+      const onVisibility = () => {
+        if (document.visibilityState === 'visible') recompute()
+      }
+
+      window.addEventListener('storage', onStorage)
+      window.addEventListener('auth:changed', onAuthChanged)
+      document.addEventListener('visibilitychange', onVisibility)
+
+      return () => {
+        window.removeEventListener('storage', onStorage)
+        window.removeEventListener('auth:changed', onAuthChanged)
+        document.removeEventListener('visibilitychange', onVisibility)
+      }
+    }, [])
+
+    // --- Legacy auth handling (before token sync fix) ---
+      // This version checked localStorage/sessionStorage separately
+      // and did not listen for the new "auth:changed" event.
+      // It sometimes caused inconsistent login state between pages
+      // (e.g. list page showing logged out while details page still
+      // had access to a userId).
+      //
+      // Kept here temporarily for reference/rollback during testing.
+      // Safe to delete once the new implementation proves stable.
+      //
+      // const hasToken = () => {//Lightweight check for token presence
+      //   // Check if user chose to be remembered
+      //   const rememberLogin = localStorage.getItem("rememberLogin");
+        
+      //   // If remember me was selected, check localStorage; otherwise check sessionStorage
+      //   const token = rememberLogin ? localStorage.getItem("authToken") : sessionStorage.getItem("authToken");
+
+      //   if (token){
+      //       try {
+      //         const tokenPayload = jwtDecode(token);
+      //         setDecodedToken(tokenPayload);
+      //         const exp = tokenPayload.exp;
+
+      //         if (exp * 1000 > Date.now()) {
+      //           return true; //still valid
+      //         } else {
+      //           //token has expired
+      //           localStorage.removeItem("authToken");
+      //           sessionStorage.removeItem("authToken");
+      //           localStorage.removeItem("rememberLogin");
+      //           alert("You have been logged out. Your session has expired.")
+      //           return false;
+      //         }
+      //       } catch {
+      //           // if token cant be decoded or is corrupted
+      //           localStorage.removeItem("authToken");
+      //           sessionStorage.removeItem("authToken");
+      //           localStorage.removeItem("rememberLogin");
+      //           alert("You have been logged out due to invalid session");
+      //           return false;
+      //       }
+      //   }
+      //   return false;
+      // }
+
+      // useEffect(() => {
+      //   setIsAuthed(hasToken())
 
         
-        const onStorage = (e) => {
-          if (e.key === "authToken") setIsAuthed(hasToken())
-        }
-        window.addEventListener("storage", onStorage)
-        return () => window.removeEventListener("storage", onStorage)
-      }, [])
-
+      //   const onStorage = (e) => {
+      //     if (e.key === "authToken") setIsAuthed(hasToken())
+      //   }
+      //   window.addEventListener("storage", onStorage)
+      //   return () => window.removeEventListener("storage", onStorage)
+      // }, [])
 
     async function handleLogin({ email, password, remember }) {
-
-
 
     const data = await authApi.post('/api/Login', { email, password });
     if (!data?.token) throw new Error('Token saknas i svar.');
@@ -105,7 +172,7 @@ const SessionListPage = () => {
         <>
           <p>Hej, {decodedToken?.FirstName || 'Användare'}</p>
           <p>({decodedToken?.email || 'No email'})</p>
-          <SignOutButton />
+          <SignOutButton redirectTo="/pass" />
         </>
       
       ) : (

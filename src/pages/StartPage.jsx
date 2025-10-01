@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Logotype from '../img/logo.png'
 
 
 const StartPage = () => {
   return (
     <main className="landing-container" aria-labelledby="welcome-heading">
       <div className="logo-container animate__animated animate__flip">
-        <img src="\src\img\logo.png" alt="Core Gym Club" className="landing-logo" />
+        <img src={Logotype} alt="Core Gym Club" className="landing-logo" />
       </div>
 
       <section className="text-container animate__animated animate__fadeInLeft">
@@ -38,6 +39,7 @@ const StartPage = () => {
         <Link to="/om" className="browse-link">Klicka här</Link>
         </p>
       </aside>
+
 </main>
   )
 }
