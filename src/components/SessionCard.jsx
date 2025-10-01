@@ -7,32 +7,31 @@ const SessionCard = ({item}) => {
   const [booked, setBooked] = useState(null);
   const [roomCapacity, setRoomCapacity] = useState(null);
 
-
   useEffect(() => {
-    let active = true
+    let active = true;
 
     async function load() {
       try {
         // hämta antal bokade
-        const participants = await bookingsApi.get(`/api/Bookings/event/${item.id}/participants`)
-        const count = Array.isArray(participants) ? participants.length : 0
+        const participants = await bookingsApi.get(`/api/Bookings/event/${item.id}/participants`);
+        const count = Array.isArray(participants) ? participants.length : 0;
 
         // hämta rummet för kapacitet
-        const room = await venuesApi.get(`/api/LocationRooms/${item.roomId}`)
-        const cap = room?.roomCapacity ?? 0
+        const room = await venuesApi.get(`/api/LocationRooms/${item.roomId}`);
+        const cap = room?.roomCapacity ?? 0;
 
         if (active) {
-          setBooked(count)
-          setCapacity(cap)
+          setBooked(count);
+          setRoomCapacity(cap); // FIX
         }
       } catch (err) {
-        console.error('Failed to fetch availability', err)
+        console.error('Failed to fetch availability', err);
       }
     }
-    load()
 
-    return () => { active = false }
-  }, [item.id, item.roomId])
+    load();
+    return () => { active = false };
+  }, [item.id, item.roomId]);
 
 
   const formatStart = (isoString) =>
