@@ -608,8 +608,10 @@ header {
 .session-details-card {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   align-items: center;
   text-decoration: none;
+  text-align: center;
   color: var(--clr-font-primary);
   margin-bottom: 1rem;
   border: 1px solid var(--clr-border);  
@@ -618,12 +620,14 @@ header {
   background: var(--clr-bg-secondary);
   height: 100%;
 
-  ul {
-    margin-block: 2rem;
+  p {
+    font-style: italic;
   }
 
   li {
     list-style: circle;
+    text-align: start;
+    cursor: default;
   }
 }
 
@@ -1085,7 +1089,6 @@ header {
 }
 .btn-back {
   padding: .5rem;
-  margin-bottom: 1.5rem;
   margin-right: auto;
   border-radius: 50%;
   border: 1px solid var(--clr-border);
@@ -1105,6 +1108,12 @@ header {
   border: none;
   cursor: pointer;
  }
+
+ .btn-box.btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+ }
+
   .form {
     border: none;
     display: flex;

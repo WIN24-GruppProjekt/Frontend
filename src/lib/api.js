@@ -146,6 +146,21 @@
     // justera efter dina claims (sub/nameid/uid)
     return claims.sub || claims.nameid || claims.uid || ''
   }
+
+  export function getEmailFromToken() {
+    const token = getToken()
+    if (!token) return ''
+    const claims = parseJwt(token) || {}
+    return claims.email || ''
+  }
+
+export function getFirstNameFromToken() {
+  const token = getToken()
+  if (!token) return ''
+  const claims = parseJwt(token) || {}
+  return claims.FirstName || ''
+}
+
   // --- Helpers for specific API endpoints ---
 
   // EventService
@@ -182,7 +197,7 @@
 
   // BookingService
   export const Bookings = {
-    create:        (body)                => bookingsApi.post('/api/Bookings', body),
+    create:        (body, opts)          => bookingsApi.post('/api/Bookings', body, opts),
     byUser:        (userId, opts)        => bookingsApi.get(`/api/Bookings/user/${userId}`, opts),
     deleteByUser:  (userId)              => bookingsApi.delete(`/api/Bookings/user/${userId}`),
     participants:  (eventId, opts)       => bookingsApi.get(`/api/Bookings/event/${eventId}/participants`, opts),
