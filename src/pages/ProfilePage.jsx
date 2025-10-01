@@ -1,7 +1,26 @@
-import React, { useState, } from 'react'
+import React, { useEffect, useState, } from 'react'
 import submitEditProfile from '../js/Submits.js'
 
 const ProfilePage = () => {
+
+    const [placeHolders, setPlaceHolders] = useState({
+        firstName: '',
+        lastName: '',
+    })
+
+    const [form, setForm] = useState({
+        firstName: '',
+        lastName: '',
+        newPassword: '',
+        confirmPassword: '',
+    })
+
+    const [loading, setLoading] = useState(true)
+    const [saving, setSaving] = useState(false)
+
+    useEffect(() => {
+
+
     return (
         <div>
             <h1>Min Profil</h1>
@@ -41,6 +60,7 @@ const ProfilePage = () => {
             </div>
         </div>
     )
-}
+})}
+
 
 export default ProfilePage
