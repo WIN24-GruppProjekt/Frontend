@@ -1045,7 +1045,7 @@ header {
   margin-bottom: 14px;
 }
 
-/* Actions */
+/* #region Actions */
 .cs-actions {
   display: flex;
   gap: 10px;
@@ -1122,8 +1122,12 @@ header {
   }
   .grey {
     color: var(--clr-border);
-    background: var(--clr-font-text);
+    background-color: var(--clr-font-text);
   }
+  .grey:hover {
+    background-color: var(--clr-navlink-hover);
+  }
+
   .signout {
     margin-top: auto;
     padding: 0px 32px;
@@ -1168,6 +1172,7 @@ header {
   .btn-box:hover {
     background-color: var(--clr-btn-primary-hover);
   }
+
   .btn-box:active {
     background-color: var(--clr-btn-primary-hover);
     transition: all 0.1s ease-in-out;
@@ -1178,6 +1183,37 @@ header {
     flex-direction: column;
     width: fit-content;
   }
+
+/* #endregion */
+
+/* #region Profile */
+
+.profile-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-form {
+
+}
+.profile-form-box {
+  display: flex;
+  margin: 10px;
+  gap: 12px;
+}
+.profile-form-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.profile-form-input {
+  height: 30px;
+  width: 250px;
+  border: none;
+  border-radius: 10px;
+}
 
 /* #endregion */
 
@@ -1268,5 +1304,17 @@ header {
 
 /* #endregion */
 
+/* #region Placeholder */
+
+.placeholder {
+  margin: 2rem auto;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--clr-font-primary);
+  display: grid;
+  place-items: center;
+}
+
+/* #endregion */
 @keyframes lm-fade { from { opacity: 0 } to { opacity: 1 } }
 @keyframes lm-pop { from { opacity: 0; transform: translateY(10px) scale(.98) } to { opacity: 1; transform: translateY(0) scale(1) } }
