@@ -1,9 +1,11 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 
 import {
   Bookings,
   Notifications,
+  bookingsApi,
+  venuesApi,
   getToken,
   getUserIdFromToken,
   getEmailFromToken,
@@ -15,35 +17,34 @@ const SessionDetailsCard = ({ session }) => {
 
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState(null)
-  const [sendEmailClientSide] = useState(true) // keep true only while backend does NOT send emails automatically
+  const [sendEmailClientSide] = useState(true) // set to false when backend sends confirmations automatically
 
-  // Cache auth state for this render (avoid calling token helpers multiple times)
+  // Availability
+  const [booked, setBooked] = useState(null)
+  const [roomCapacity, setRoomCapacity] = useState(null)
+
+  // Auth snapshot for this render
   const userId = getUserIdFromToken()
   const isAuthed = !!userId
 
-  // Compute once; keep “Book” clickable for non-authed users to show the login message
+  // Keep “Boka” clickable when not authed to show the login message
   const canBook = useMemo(() => !!session?.id && !loading, [session?.id, loading])
 
-  // Date formatting helpers
+  // Helpers
   const formatStart = (isoString) =>
     new Date(isoString).toLocaleString('sv-SE', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
+      year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
     })
-
   const formatEnd = (isoString) =>
     new Date(isoString).toLocaleTimeString('sv-SE', {
-      hour: '2-digit',
-      minute: '2-digit',
+      hour: '2-digit', minute: '2-digit',
     })
 
   // Email payload fields
   const userEmail = getEmailFromToken()
   const firstName = getFirstNameFromToken()
 
+  // Event fields
   const eventId = session.id
   const eventLocation = [session?.location, session?.locationRoom].filter(Boolean).join(', ')
   const eventTimeStr = `${formatStart(session.startTime)} - ${formatEnd(session.endTime)}`
@@ -54,66 +55,69 @@ const SessionDetailsCard = ({ session }) => {
     session?.trainer?.name ||
     ''
 
-  /**
-   * Resolve bookingId after create.
-   * Your POST /Bookings returns { success: true } without the id, so we fetch user's bookings
-   * and pick the newest booking for this event. Small retry covers write/read lag.
-   */
-  async function resolveBookingId({ userId, eventId, attempts = 3, delayMs = 400 }) {
-    for (let i = 0; i < attempts; i++) {
-      try {
-        const list = await Bookings.byUser(userId)
-        const arr = Array.isArray(list) ? list : []
-        const matches = arr.filter(b => b?.eventId === eventId || b?.event?.id === eventId)
-        if (matches.length > 0) {
-          const candidate = matches
-            .sort((a, b) => {
-              const at = new Date(a?.createdAt || a?.created_at || 0).getTime()
-              const bt = new Date(b?.createdAt || b?.created_at || 0).getTime()
-              return bt - at
-            })[0]
-          const id = candidate?.id ?? candidate?.bookingId ?? ''
-          if (id) return String(id)
-        }
-      } catch {
-        // ignore and retry
-      }
-      await new Promise(r => setTimeout(r, delayMs))
+  // Load participants + capacity
+  const loadAvailability = useCallback(async () => {
+    const participants = await bookingsApi.get(`/api/Bookings/event/${session.id}/participants`)
+    const room = await venuesApi.get(`/api/LocationRooms/${session.roomId}`)
+    setBooked(participants)
+    setRoomCapacity(room?.roomCapacity ?? 0)
+  }, [session.id, session.roomId])
+
+  useEffect(() => {
+    loadAvailability().catch(err => console.error('Kunde inte hämta tillgänglighet', err))
+  }, [loadAvailability])
+
+  // Readable guard for “full”
+  function isSessionFull() {
+    return booked !== null && roomCapacity !== null && booked >= roomCapacity
+  }
+
+  async function resolveBookingIdOnce({ userId, eventId }) {
+    try {
+      const list = await Bookings.byUser(userId)
+      const arr = Array.isArray(list) ? list : []
+      const match =
+        arr
+          .filter(b => b?.eventId === eventId || b?.event?.id === eventId)
+          .sort((a, b) => {
+            const at = new Date(a?.createdAt || a?.created_at || 0).getTime()
+            const bt = new Date(b?.createdAt || b?.created_at || 0).getTime()
+            return bt - at
+          })[0]
+      return (match?.id ?? match?.bookingId ?? '') + '' || ''
+    } catch {
+      return ''
     }
-    return ''
   }
 
   async function handleBook() {
-    // Guard: user must be logged in
+    // Auth guards
     const token = getToken()
-    if (!token) {
-      setMessage('Du måste vara inloggad för att boka.')
-      return
-    }
-    if (!isAuthed) {
-      setMessage('Kunde inte läsa ut ditt användar-ID.')
-      return
-    }
+    if (!token) { setMessage('Du måste vara inloggad för att boka.'); return }
+    if (!isAuthed) { setMessage('Kunde inte läsa ut ditt användar-ID.'); return }
 
-    const idempotencyKey = crypto.randomUUID()
-    const body = { eventId, userId } // if backend reads userId from JWT, you can send only { eventId }
+    // Capacity guard (UX)
+    if (isSessionFull()) { setMessage('Passet är fullt.'); return }
 
     setLoading(true)
     setMessage(null)
+
+    const idempotencyKey = crypto.randomUUID()
+    const body = { eventId, userId } // if backend reads userId from JWT, { eventId } is enough
 
     try {
       const result = await Bookings.create(body, {
         headers: { 'Idempotency-Key': idempotencyKey }
       })
 
-      // Try to pick bookingId directly if server ever adds it; otherwise resolve via byUser()
+      // Prefer server-provided id; otherwise resolve once from /user bookings
       let bookingId = result?.id ?? result?.bookingId ?? ''
-      if (!bookingId) bookingId = await resolveBookingId({ userId, eventId })
+      if (!bookingId) bookingId = await resolveBookingIdOnce({ userId, eventId })
 
       setMessage('Bokningen är klar! Ett bekräftelsemail skickas strax.')
 
       if (sendEmailClientSide && bookingId) {
-        const dto = {
+        await Notifications.bookingEmailConfirmation({
           email: userEmail || '',
           firstName: firstName || '',
           bookingId,
@@ -121,8 +125,7 @@ const SessionDetailsCard = ({ session }) => {
           eventTime: eventTimeStr || '',
           eventName: eventName || '',
           trainerName: trainerName || ''
-        }
-        await Notifications.bookingEmailConfirmation(dto)
+        })
       }
     } catch (e) {
       const text = String(e?.message || e)
@@ -132,6 +135,8 @@ const SessionDetailsCard = ({ session }) => {
       else setMessage('Kunde inte boka just nu. Försök igen om en stund.')
     } finally {
       setLoading(false)
+      // Refresh availability after any attempt
+      loadAvailability().catch(() => {})
     }
   }
 
@@ -149,6 +154,11 @@ const SessionDetailsCard = ({ session }) => {
         {session.locationRoom ? `, ${session.locationRoom}` : ''}
       </p>
 
+      {/* Availability */}
+      {booked !== null && roomCapacity !== null && (
+        <p>{booked}/{roomCapacity} platser bokade</p>
+      )}
+
       <ul>
         <li>Fri avbokning till 2 timmar före passet.</li>
         <li>Kom 10 min innan start.</li>
@@ -156,23 +166,29 @@ const SessionDetailsCard = ({ session }) => {
       </ul>
 
       <button
-        className={`btn-box ${!isAuthed ? 'btn-disabled' : ''}`}
+        className={`btn-box ${(!isAuthed || isSessionFull()) ? 'btn-disabled' : ''}`}
         type='button'
         onClick={handleBook}
-        disabled={!canBook}                      // keep clickable when not authed → shows login message
-        aria-disabled={!canBook}
+        disabled={!canBook || isSessionFull()}
+        aria-disabled={!canBook || isSessionFull()}
         aria-busy={loading ? 'true' : 'false'}
-        title={!isAuthed ? 'Logga in för att kunna boka' : undefined}
+        title={
+          !isAuthed
+            ? 'Logga in för att kunna boka'
+            : isSessionFull()
+              ? 'Passet är fullbokat'
+              : undefined
+        }
       >
-        <div className="btn-standard large">Boka</div>
+        <div className="btn-standard large">
+          {isSessionFull() ? 'Fullbokat' : 'Boka'}
+        </div>
       </button>
 
-      {/* Show booking/status messages only when logged in */}
       {message && isAuthed && (
         <div className="toast info" role="status" aria-live="polite">{message}</div>
       )}
 
-      {/* Hint for non-logged-in users */}
       {!isAuthed && (
         <p className="text-muted" role="note">Logga in för att kunna boka.</p>
       )}
