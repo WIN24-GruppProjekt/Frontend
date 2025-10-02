@@ -56,7 +56,7 @@ const ProfilePage = () => {
                     placeholders={placeholders}
                     saving={saving}
                     onChange={onChange}
-                    onSubmit={submitEditProfile}
+                    onSubmit={onSubmit}
                 />
             </div>
         </div>

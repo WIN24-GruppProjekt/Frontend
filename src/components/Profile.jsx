@@ -1,7 +1,6 @@
 import React from 'react'
-import submitEditProfile from '../js/Submits.js'
 
-const Profile = ({ values, placeholders, editing, errors, saving, onChange, onToggle, onSubmit }) => {
+const Profile = ({ values, placeholders, saving, onChange, onSubmit }) => {
 
     return (
             <form className="profile-form" onSubmit={onSubmit}>
@@ -33,7 +32,8 @@ const Profile = ({ values, placeholders, editing, errors, saving, onChange, onTo
 
                 <div className="profile-form-box">
                     <div className="profile-form-container">
-                        <EditTableInput
+                    <label htmlFor="newPassword">E-post</label>
+                        <input
                         id="email"
                         label="E-post"
                         name="email"
