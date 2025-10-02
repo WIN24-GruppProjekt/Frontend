@@ -115,7 +115,6 @@ const ProfilePage = () => {
 
     return (
         <div>
-            <h1>Min Profil</h1>
             <div className="profile-box">
                 <Profile
                     values={form}

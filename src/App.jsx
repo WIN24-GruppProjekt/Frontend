@@ -24,7 +24,7 @@ function App() {
         <Route path='/pass' element={<SessionListPage />} />
         <Route path='/pass/info/:id' element={<SessionDetailsPage />} />
         <Route path='/om' element={<AboutPage />} />
-        <Route path='/profil' element={<Placeholder />} />
+        <Route path='/profil' element={<ProfilePage />} />
         <Route path='/komponenter' element={<ComponentsPage />} />
       </Route>
 

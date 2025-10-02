@@ -6,6 +6,7 @@ const Profile = ({ values, placeholders, saving, onChange, onSubmit }) => {
             <form className="profile-form" onSubmit={onSubmit}>
                 <div className="profile-form-box">
                     <div className="profile-form-container">
+                        <label htmlFor="newPassword">Förnamn</label>
                         <input
                         id="firstName"
                         label="Förnamn"
@@ -18,6 +19,7 @@ const Profile = ({ values, placeholders, saving, onChange, onSubmit }) => {
                     </div>
                 
                     <div className="profile-form-container">
+                        <label htmlFor="newPassword">Efternamn</label>
                         <input
                         id="lastName"
                         label="Efternamn"
