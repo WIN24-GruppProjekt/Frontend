@@ -547,6 +547,7 @@ header {
   color: var(--clr-font-primary);
   margin-right: auto;
 }
+
 .session-page{
   margin: 0 1rem 0 1rem;
 }
@@ -569,41 +570,41 @@ header {
   background: var(--clr-bg-secondary);
   box-shadow: 0 10px 30px rgba(0,0,0,0.10);
 }
+
 .session-add{
   height: 12rem;
   border: 1px dashed var(--clr-border);
   display: flex;
   justify-content: center;
   align-items: center;
-  
+}
+
+.session-card-title {
+  margin-bottom: auto;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .session-card-description {
   font-style: italic;
 }
 
-.session-card-time {
+.session-card-time, .session-card-location, .session-card-trainer {
   display: flex;
   gap: .3rem;
 
   &::before {
     font-family: var(--font-fa-free);
     font-weight: 600;
-    content: '\f133';
   }
 }
-
-.session-card-location {
-  display: flex;
-  gap: .3rem;
-  margin-bottom: .3rem;
-
-  &::before {
-    font-family: var(--font-fa-free);
-    font-weight: 600;
-    content: '\f3c5';
-  }
-}
+.session-card-time::before { content: '\f133'; }
+.session-card-location::before { content: '\f3c5'; }
+.session-card-trainer::before { content: '\f007'; }
 
 .session-details-card {
   display: flex;
@@ -1191,9 +1192,6 @@ header {
   justify-content: center;
 }
 
-.profile-form {
-
-}
 .profile-form-box {
   display: flex;
   margin: 10px;

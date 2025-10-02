@@ -10,6 +10,11 @@ const SessionCard = ({item}) => {
   const [locationDetails, setLocationDetails] = useState();
   const [trainerDetails, setTrainerDetails] = useState();
 
+  const truncateText = (text, maxLength) => {
+    if (!text) return "";
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+  };
+
   useEffect(() => {
     let active = true;
 
@@ -78,16 +83,19 @@ const SessionCard = ({item}) => {
   return (
     <Link to={`/pass/info/${item.id}`} className='session-card'>
       <h3 className='session-card-title'>{item.title}</h3>
-      <span className='session-card-description'>{item.description}</span>
-      <span className='session-card-time'>{formatStart(item.startTime)} - {formatEnd(item.endTime)}</span>
-      <span className='session-card-location'>
-        {locationDetails?.name}, {roomDetails?.roomName}
-      </span>
-      {trainerDetails && (
-        <span className='session-card-trainer'>
-          Instruktör: {trainerDetails?.firstName} {trainerDetails?.lastName}
+      <span className='session-card-description'>{truncateText(item.description, 80)}</span>
+      <div className='session-card-infobox'>
+        <span className='session-card-time'>{formatStart(item.startTime)} - {formatEnd(item.endTime)}</span>
+        <span className='session-card-location'>
+          {locationDetails?.name}, {roomDetails?.roomName}
         </span>
-      )}
+        {trainerDetails && (
+          <span className='session-card-trainer'>
+            {trainerDetails?.firstName} {trainerDetails?.lastName}
+          </span>
+        )}
+      </div>
+
       {booked !== null && roomCapacity !== null && ( // vänta på att båda laddas
         <span className='session-card-spots'>
           {booked}/{roomCapacity} platser bokade
