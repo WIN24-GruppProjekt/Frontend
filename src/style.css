@@ -107,7 +107,7 @@ p, li, span, label {
 
   --clr-border: #2B3240;
 
-  --clr-btn-primary: #FF5A4E;
+  --clr-btn-primary: #cf3328;
   --clr-btn-primary-hover: #FF796C;
 
   --clr-error: #FF6B6B;
@@ -1107,6 +1107,16 @@ header {
   border-radius: 8px;
   border: none;
   cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.5);
+  &:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(229, 9, 20, 0.6);
+  }
+  &:active{
+    transform: translateY(2px);
+    box-shadow: 0 2px 6px rgba(229, 9, 20, 0.7) inset;
+  }
  }
 
  .btn-box.btn-disabled {
@@ -1150,33 +1160,20 @@ header {
   gap: 5px;
   margin: 20px;
   border: none;
- }
+  color: white;
+}
   .medium {
     font-size: 12px;
   }
   .large {
     font-size: 14px;
   }
-  .large:active {
-    font-size: 13px;
-    transition: all 0.1s ease-in-out;
-  }
+
   .mobile {
     font-size: 20px;
     margin: 30px; 
   }
-  .mobile:active {
-    font-size: 19px;
-    transition: all 0.1s ease-in-out;
-  }
-  .btn-box:hover {
-    background-color: var(--clr-btn-primary-hover);
-  }
 
-  .btn-box:active {
-    background-color: var(--clr-btn-primary-hover);
-    transition: all 0.1s ease-in-out;
-  }
 
   .more-info-book-pass {
     display: flex;
