@@ -1,124 +1,90 @@
-Core Gym Club – Frontend
-Overview
-This repository contains the frontend application for Core Gym Club AB’s digital platform.
-The goal is to provide members and staff with a modern, responsive interface for booking and managing training sessions, viewing availability, and handling authentication.
-The application is built with React (Vite) and integrates with several backend microservices via REST APIs.
+This repository contains the **frontend application** for Core Gym Club AB, developed as part of a school assignment at EC Utbildning (ASP.NET Developer Program, WIN24).  
+The project demonstrates modern frontend development practices with React, integration against multiple microservices, and role-based functionality.
 
-Features
-Authentication & Authorization
-Login and registration with JWT-based authentication.
-Role-based access: Instructor vs. Customer.
-Secure token storage in localStorage.
-Session Management
-Display of all available training sessions.
-Date range filter for sessions.
-Detailed session view.
-Instructor-only functionality: create new sessions.
-Create Session Modal
-Instructors can create new training sessions directly in the UI.
-Dynamic fetching of locations and rooms from VenueService.
-Validation both client-side and server-side.
-Role-gated: only visible for users with the Instructor role.
-Session Availability
-Shows current number of participants against room capacity.
-Integrates with BookingService (participants) and VenueService (room info).
-Reusable Components
-LoginModal and RegisterModal with validation and error handling.
-Terms of Use component with external link.
-Reusable session cards and buttons.
+---
 
-Tech Stack
-Framework: React 18 (Vite)
-Routing: React Router
-Styling: Custom CSS, utility classes
-State Management: React hooks (useState, useEffect, useMemo)
-APIs:
-AuthService – authentication & registration
+## Overview
 
+The frontend provides:
 
-EventService – training sessions (CRUD)
+- User-facing portal for gym members to view and book training sessions.
+- Trainer functionality for creating and managing sessions.
+- Integration with multiple backend microservices (Events, Venues, Bookings, Authentication, Notifications).
+- A modular React component structure with reusable modals, forms, and API client utilities.
 
+---
 
-VenueService – locations and rooms
+## Features
 
+- **Authentication** via JWT (Auth API).
+- **Role-based UI** (trainers can create sessions, members can only book).
+- **Session listing** with date filtering and availability tracking.
+- **Session creation modal** with validation and API integration.
+- **Reusable API client** with token handling, retries, and error states.
+- **Custom modal system** (no Bootstrap/jQuery dependencies).
+- **Environment-based configuration** via `.env` and Vite.
 
-BookingService – session bookings & participants
+---
 
+## Tech Stack
 
-NotificationService – booking confirmations
+- **Framework**: React 18
+- **Build Tool**: Vite
+- **Routing**: React Router DOM
+- **Styling**: Custom CSS (modularized, variables-based)
+- **State & Hooks**: React hooks (`useState`, `useEffect`, `useMemo`)
+- **API Calls**: Fetch wrapper with retries and token injection
+- **Spinner/Loading**: `react-spinners`
 
-Main Dependencies
-These are the primary npm packages used in the project:
-react / react-dom – core framework and rendering.
-react-router-dom – routing between pages.
-react-spinners – loader components (e.g. ClipLoader).
-uuid – generation and validation of unique IDs.
-vite – development/build tool.
-prop-types – runtime props validation for components.
-(See package.json for the full list of dependencies and devDependencies.)
+---
 
-Environment Variables
-Configuration is handled via .env with the VITE_ prefix for client exposure.
-# Event API
-VITE_EVENTS_API_BASE_URL=https://eventsservices-xxxx.azurewebsites.net
+## Microservices Integration
 
-# Venue API
-VITE_VENUES_API_BASE_URL=https://venueservices-xxxx.azurewebsites.net
+The frontend communicates with the following backend services:
 
-# Auth API
-VITE_AUTH_API_BASE_URL=https://accountservice-xxxx.azurewebsites.net
+- **EventService**
+  - Create, edit, delete, list training sessions
+- **VenueService**
+  - Locations and rooms for training sessions
+- **BookingService**
+  - Booking sessions and managing participants
+- **AuthService**
+  - Login, token management, roles
+- **NotificationService**
+  - Email confirmation for bookings
 
-# Booking API
-VITE_BOOKINGS_API_BASE_URL=https://bookingservices-xxxx.azurewebsites.net
+All API base URLs are configurable in `.env`:
 
-# Notification API
-VITE_NOTIFICATIONS_API_BASE_URL=https://notificationservices-xxxx.azurewebsites.net
+```env
+VITE_EVENTS_API_BASE_URL=...
+VITE_VENUES_API_BASE_URL=...
+VITE_AUTH_API_BASE_URL=...
+VITE_BOOKINGS_API_BASE_URL=...
+VITE_NOTIFICATIONS_API_BASE_URL=...
 
 Getting Started
 Prerequisites
-Node.js 20+
-npm or yarn
+
+    Node.js 20+
+
+    NPM 9+
+
 Installation
+
 git clone https://github.com/your-org/frontend.git
 cd frontend
 npm install
+
 Development
+
 npm run dev
-The app will start on http://localhost:5173.
-Build
+
+The app will start at http://localhost:5173.
+Build for Production
+
 npm run build
-Preview Production Build
-npm run preview
 
-Project Structure
-src/
- ├─ components/       # Reusable UI components
- │   ├─ modals/       # Login, Register, CreateSession
- │   └─ SessionCard.jsx
- ├─ pages/            # Page-level views (SessionList, About, etc.)
- ├─ layouts/          # Shared layouts
- ├─ lib/              # API clients and utilities
- │   ├─ api.js
- │   └─ http.js
- ├─ App.jsx
- └─ main.jsx
+Project Status
 
-Diagrams
-Activity Diagram – Create Session (Instructor)
-See docs/activity-diagram.md
-Sequence Diagram – POST /api/Events
-See docs/sequence-diagram.md
-
-Contributing
-Create a new branch from main:
-git checkout main
-git pull origin main
-git checkout -b feature/your-feature
-Make your changes.
-Commit and push:
-git add .
-git commit -m "Description of your changes"
-git push -u origin feature/your-feature
-Open a Pull Request into main.
-
-
+This is a school assignment developed by students at EC Utbildning.
+It is not intended for production use but demonstrates microservice-based frontend integration.
