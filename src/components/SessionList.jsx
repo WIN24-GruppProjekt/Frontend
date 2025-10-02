@@ -76,7 +76,7 @@ const SessionList = () => {
   if (isLoading) {
     return (
       <div className="spinner-container">
-        <ClipLoader size={60} />
+        <ClipLoader size={60} color="red"/>
         <p className="spinner-text">Laddar pass...</p>
       </div>
     );
