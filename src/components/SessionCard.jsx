@@ -14,14 +14,13 @@ const SessionCard = ({item}) => {
       try {
         // hämta antal bokade
         const participants = await bookingsApi.get(`/api/Bookings/event/${item.id}/participants`);
-        const count = Array.isArray(participants) ? participants.length : 0;
 
         // hämta rummet för kapacitet
         const room = await venuesApi.get(`/api/LocationRooms/${item.roomId}`);
         const cap = room?.roomCapacity ?? 0;
 
         if (active) {
-          setBooked(count);
+          setBooked(participants);
           setRoomCapacity(cap); // FIX
         }
       } catch (err) {
