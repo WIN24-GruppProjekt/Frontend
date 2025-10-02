@@ -685,6 +685,7 @@ header {
 /* #endregion */
 
 /* #region Modal */
+
 .lm-overlay {
   position: fixed;
   inset: 0;
@@ -1190,12 +1191,13 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .profile-form-box {
   display: flex;
-  margin: 10px;
-  gap: 12px;
+  margin: 50px 0;
+  gap: 20px;
 }
 .profile-form-container {
   position: relative;
@@ -1206,8 +1208,13 @@ header {
 .profile-form-input {
   height: 30px;
   width: 250px;
-  border: none;
+  width: 100%;
+  border: 1px solid var(--clr-border);
+  background: var(--clr-bg-secondary);
+  color: var(--clr-font-primary);
   border-radius: 10px;
+  padding: 10px 12px;
+  outline: none;
 }
 
 /* #endregion */
