@@ -1,19 +1,27 @@
-  import React, {useState} from 'react'
+  import React, { useEffect, useState} from 'react'
   import { v4 as uuidv4 } from 'uuid';
   import NavigationLink from './NavigationLink';
   import CoreLogotype from '../img/core.png'
   import ThemeToggle from './ThemeToggle';
+  import { getToken } from '../lib/api';
 
   const Header = () => {
-
+    const [token, setToken] = useState(() => getToken());
+    const isAuthed = !!token;
     const [menuOpen, setMenuOpen] = useState(false)
 
-      const [navLinks, setNavLinks] = useState([
-          { id: uuidv4(), name: "Start", to: "/" },
-          { id: uuidv4(), name: "Pass", to: "/pass" },
-          { id: uuidv4(), name: "Om Oss", to: "/om" },
-          { id: uuidv4(), name: "Min Profil", to: "/profil" },
-      ]);
+    useEffect(() => {
+      const onAuthChanged = () => setToken(getToken());
+      window.addEventListener("auth:changed", onAuthChanged);
+      return () => window.removeEventListener("auth:changed", onAuthChanged);
+    }, []);
+
+    const navLinks = [
+      { id: uuidv4(), name: "Start", to: "/" },
+      { id: uuidv4(), name: "Pass", to: "/pass" },
+      { id: uuidv4(), name: "Om Oss", to: "/om" },
+      ...(isAuthed ? [{id: uuidv4(), name: "Min Profil", to: "/profil"}] : [])
+    ]
 
     return (
       <header>
