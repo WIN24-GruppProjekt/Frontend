@@ -1,5 +1,4 @@
 import React from 'react'
-import InstructorPhoto from '../img/instructor-photo.png'
 
 const getInitials = (firstName, lastName) => {
   const first = (firstName || '').trim()[0] || ''
@@ -7,13 +6,17 @@ const getInitials = (firstName, lastName) => {
   return (first + last).toUpperCase()
 }
 
-const GymInstructorCard = ({ firstName, lastName, photoUrl }) => {
+const GymInstructorCard = ({ firstName, lastName, imgUrl }) => {
   const initials = getInitials(firstName, lastName)
+  const imgPath = `/avatars/${imgUrl ?? 'instructor-photo.png'}`
 
   return (
     <div className="instructor-card">
       <div className="instructor-card__avatar" aria-label={`Profile image for ${firstName} ${lastName}`}>
-        <img src={photoUrl || InstructorPhoto} alt={`${firstName} ${lastName}`} />
+        <img src={imgPath} alt={`${firstName} ${lastName}`} onError={(e) => {
+          e.currentTarget.onerror = null
+          e.currentTarget.src = '/avatars/instructor-photo.png'
+        }}/>
       </div>
       <div className="instructor-card__info">
         <h3 className="instructor-card__name">{firstName} {lastName}</h3>
@@ -24,4 +27,3 @@ const GymInstructorCard = ({ firstName, lastName, photoUrl }) => {
 }
 
 export default GymInstructorCard
-
