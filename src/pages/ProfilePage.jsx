@@ -1,6 +1,6 @@
 import React, { useEffect, useState, } from 'react'
 import Profile from '../components/Profile.jsx'
-import api, { getFirstNameFromToken, getEmailFromToken } from '../lib/api.js'
+import api, { getFirstNameFromToken, getLastNameFromToken, getEmailFromToken } from '../lib/api.js'
 
 const ProfilePage = () => {
 
@@ -33,7 +33,7 @@ const ProfilePage = () => {
                 const data = res?.data ?? res
                 const profile = {
                     firstName: data.firstName ?? getFirstNameFromToken() ?? '',
-                    lastName: data.lastName ??'',
+                    lastName: data.lastName ?? getLastNameFromToken() ??'',
                     email: data.email ?? getEmailFromToken() ?? '',
                 }
                 if (!active) return
@@ -42,7 +42,7 @@ const ProfilePage = () => {
             } catch {
                 const fallback = {
                     firstName: getFirstNameFromToken() ?? '',
-                    lastName: '',
+                    lastName: getLastNameFromToken() ?? '',
                     email: getEmailFromToken() ?? '',
                 }
                 if (!active) return

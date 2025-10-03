@@ -161,6 +161,13 @@ export function getFirstNameFromToken() {
   return claims.FirstName || ''
 }
 
+export function getLastNameFromToken() {
+  const token = getToken()
+  if (!token) return ''
+  const claims = parseJwt(token) || {}
+  return claims.LastName || ''
+}
+
   // --- Helpers for specific API endpoints ---
 
   // EventService
