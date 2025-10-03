@@ -55,6 +55,7 @@ const AboutPage = () => {
                 key={`${instr.firstName}-${instr.lastName}-${idx}`}
                 firstName={instr.firstName}
                 lastName={instr.lastName}
+                photoUrl={instr.imgUrl}
               />
             ))}
           </div>
