@@ -1367,8 +1367,8 @@ header {
 }
 
 .instructor-card__avatar {
-  width: 56px;
-  height: 56px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   background: var(--clr-border);
   color: var(--clr-font-primary);
@@ -1378,7 +1378,7 @@ header {
   font-weight: 700;
   font-size: 18px;
   letter-spacing: 0.5px;
-  flex: 0 0 56px;
+  flex: 0 0 100px;
   overflow: hidden;
   border: 1px solid var(--clr-border);
 }
