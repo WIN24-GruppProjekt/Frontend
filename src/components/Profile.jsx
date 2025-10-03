@@ -75,7 +75,7 @@ const Profile = ({ values, placeholders, saving, onChange, onSubmit }) => {
                     </div>
                 </div>
 
-                <button className="btn-box grey" type='submit' disabled={saving}>
+                <button className="btn-box" type='submit' disabled={saving}>
                     <div className="btn-standard large">{saving ? "Sparar..." : "Spara"}</div>
                 </button>
             </form>

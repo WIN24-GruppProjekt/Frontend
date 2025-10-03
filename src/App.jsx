@@ -7,7 +7,6 @@ import AboutPage from './pages/AboutPage'
 import ComponentsPage from './pages/ComponentsPage'
 import SessionDetailsPage from './pages/SessionDetailsPage'
 import ProfilePage from './pages/ProfilePage'
-import Placeholder from './pages/PlaceholderPage'
 
 
 function App() {
